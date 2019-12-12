@@ -1,0 +1,182 @@
+body {
+    margin: 0 auto;
+    font-family: 'Open Sans';
+    /*
+    ========================================================
+     This pattern is downloaded from www.subtlepatterns.com
+     If you need more, that's where to get'em.
+    ========================================================
+     */
+    background-image: url("../img/backgrounds/bg.png");
+}
+
+header {
+    background-color: red;
+    width: 100%;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    height: 5rem;
+}
+
+button {
+    min-width: 2rem;
+    min-height: 1rem;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    font-weight: 700;
+    color: #313133;
+    background: #4FD1C5;
+    background: linear-gradient(90deg, rgba(129,230,217,1) 0%, rgba(79,209,197,1) 100%);
+    border: 0.1rem solid red;
+    border-radius: 100rem;
+    /*box-shadow: 12px 12px 24px rgba(79,209,197,.64);*/
+    transition: all 0.3s ease-in-out 0s;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+button:hover, button:focus {
+    color: #313133;
+    transform: translateY(-6px);
+}
+
+a {
+    text-decoration: none;
+}
+
+a.title {
+    text-decoration: none;
+    float: left;
+    color: white;
+    font-size: 1.5rem;
+    padding: 1rem;
+}
+
+.search {
+    float: right;
+    margin: 1rem;
+}
+
+.clearBoth {
+    clear: both;
+}
+
+article {
+    text-align: center;
+    margin: auto;
+}
+
+article#productInfo {
+    height: 90%;
+}
+
+.product {
+    text-align: center;
+    display: inline-block;
+    padding: 2%;
+}
+
+.product > img, .productInfo > img {
+    display: block;
+    width: auto;
+    height: 16rem;
+    padding: 3rem 0 1rem;
+    margin: 0 auto;
+}
+
+.productInfo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.productInfo > img {
+    display: inline-block;
+    float: left;
+    margin: 2%;
+}
+
+.productInfo > span {
+    display: inline-block;
+    padding: 1rem;
+    width: 60%;
+    float: left;
+    margin: 2%;
+}
+
+.product > input[type="text"] {
+    max-width: 6rem;
+}
+
+input[type="text"], label, .productInfo > span {
+    font-family: inherit;
+    border: 0.1rem solid red;
+    border-radius: 0.2rem;
+    outline: none;
+    box-sizing: border-box;
+    transition: 0.3s;
+    background-color: white;
+    text-align: justify;
+    padding: 0.4em;
+}
+
+input[type="text"]:focus {
+    border: blue 0.2em solid;
+    box-shadow: 0 0 8px 0 red;
+}
+
+footer {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+@media only screen and (max-width: 700px){
+    .search {
+        clear: both;
+        float: none;
+        padding: 5%;
+        width: 85%;
+    }
+
+    .search > input[type="text"] {
+        width: 70%;
+    }
+
+    input[type="text"], label, .productInfo > span {
+        font-size: 0.8rem;
+    }
+
+    button {
+        font-size: 0.8rem;
+    }
+
+    .product > img {
+        min-width: 4rem;
+        min-height: 4rem;
+        max-width: 8rem;
+        max-height: 8rem;
+        padding: 3rem 1rem 1rem;
+    }
+
+    .product > input[type="text"] {
+        max-width: 4rem;
+    }
+
+    .productInfo {
+        display: block;
+        height: 80%;
+    }
+    .productInfo > img {
+        margin: 0.5rem;
+        float: none;
+    }
+    .productInfo > span {
+        margin: 0 auto;
+        width: 96%;
+        margin: 2%;
+    }
+}
