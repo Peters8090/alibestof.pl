@@ -10,12 +10,12 @@
         <link rel="stylesheet" href="css/style.css" type="text/css">
         <link href="img/icons/icon.png" rel="shortcut icon">
         <link href="https://fonts.googleapis.com/css?family=Nunito|Open+Sans&display=swap" rel="stylesheet">
-                
+
         <script>
             window.ao_subid = "";
         </script>
         <script src="//js.mamydirect.com/js/?h=kJlyQUb9" type="text/javascript" async></script>
-        
+
         <script>
             document.addEventListener('contextmenu', event => event.preventDefault());
         </script>
@@ -49,9 +49,8 @@
             require_once "dbConnect.php";
 
             if ($result = @$connection->query("SELECT * FROM $table_products WHERE hidden=0 ORDER BY id DESC LIMIT {$start}, {$limit} ")) {
-                foreach ($result as $product) {
-                    $imgPath = "img/products/{$product['name']}";
-
+                foreach ($result as $product)
+                {$imgPath = "img/products/{$product['id']}";
                     if(file_exists($imgPath.".png"))
                         $imgPath = $imgPath.".png";
                     else if(file_exists($imgPath.".jpg"))
@@ -65,7 +64,8 @@
     <form action="productInfo.php" method="GET"
         <div class='product'>
             <img src="{$imgPath}"/>
-            <input type="text" name="productName" readonly="readonly" value="{$product['name']}"/>
+            <input type="text" readonly="readonly" value="{$product['name']}"/>
+            <input name="id" type="hidden" value="{$product['id']}"/>
             <button type="submit" >MORE</button>
         </div>
     </form>

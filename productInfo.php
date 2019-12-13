@@ -1,10 +1,14 @@
 <?php
-if (!isset($_GET['productName']) || empty($_GET['productName'])) {
+if (!isset($_GET['id']) || empty($_GET['id'])) {
     header('Location: index.php');
 }
 
 require_once "dbConnect.php";
-$sql = "SELECT * FROM $table_products WHERE hidden=0 AND name='{$_GET['productName']}'";
+
+$_GET['id'] = htmlentities($_GET['id'], ENT_QUOTES, "UTF-8");
+$_GET['id'] = mysqli_real_escape_string($connection, $_GET['id']);
+
+$sql = "SELECT * FROM $table_products WHERE hidden=0 AND id='{$_GET['id']}'";
 
 if ($result = $connection->query($sql)) {
     if (($result->num_rows) == 0) {
@@ -44,10 +48,10 @@ if ($result = $connection->query($sql)) {
         <article id="productInfo">
             <?php
 
-            if ($result = $connection->query("SELECT * FROM $table_products WHERE hidden=0 AND name='{$_GET['productName']}'")) {
+            if ($result = $connection->query($sql)) {
                 $product = $result->fetch_assoc();
 
-                $imgPath = "img/products/{$product['name']}";
+                $imgPath = "img/products/{$product['id']}";
 
                 if (file_exists($imgPath . ".png"))
                     $imgPath = $imgPath . ".png";

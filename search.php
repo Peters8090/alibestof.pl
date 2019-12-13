@@ -49,7 +49,7 @@ _END;
                     exit();
                 } else {
                     foreach ($result as $product) {
-                        $imgPath = "img/products/{$product['name']}";
+                        $imgPath = "img/products/{$product['id']}";
 
                         if(file_exists($imgPath.".png"))
                             $imgPath = $imgPath.".png";
@@ -64,7 +64,8 @@ _END;
     <form action="productInfo.php" method="GET"
         <div class='product'>
             <img src="{$imgPath}"/>
-            <input type="text" name="productName" readonly="readonly" value="{$product['name']}"/>
+            <input type="text" readonly="readonly" value="{$product['name']}"/>
+            <input name="id" type="hidden" value="{$product['id']}"/>
             <button type="submit" >MORE</button>
         </div>
     </form>
