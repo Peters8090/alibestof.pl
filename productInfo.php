@@ -2,14 +2,10 @@
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     header('Location: index.php');
 }
-
 require_once "dbConnect.php";
-
 $_GET['id'] = htmlentities($_GET['id'], ENT_QUOTES, "UTF-8");
 $_GET['id'] = mysqli_real_escape_string($connection, $_GET['id']);
-
 $sql = "SELECT * FROM $table_products WHERE hidden=0 AND id='{$_GET['id']}'";
-
 if ($result = $connection->query($sql)) {
     if (($result->num_rows) == 0) {
         header("Location: index.php");
@@ -47,12 +43,9 @@ if ($result = $connection->query($sql)) {
 
         <article id="productInfo">
             <?php
-
             if ($result = $connection->query($sql)) {
                 $product = $result->fetch_assoc();
-
                 $imgPath = "img/products/{$product['id']}";
-
                 if (file_exists($imgPath . ".png"))
                     $imgPath = $imgPath . ".png";
                 else if (file_exists($imgPath . ".jpg"))
@@ -61,19 +54,15 @@ if ($result = $connection->query($sql)) {
                     $imgPath = $imgPath . ".jpeg";
                 else if (file_exists($imgPath . ".gif"))
                     $imgPath = $imgPath . ".gif";
-
                 echo <<< _END
     <div class="productInfo">
         <img src="{$imgPath}"/>
-
         <span>
                 <strong>Name:</strong>
                 {$product['name']}
-
                 <br/><br/>
                 <strong>Description:</strong>
                 {$product['description']}
-
                 <br/><br/>
                 <form action="{$product['reflink']}">
                     <button type="submit" >LINK</button>
@@ -84,9 +73,7 @@ if ($result = $connection->query($sql)) {
 _END;
             } else {
                 echo <<< _END
-
 <label>Error: $connection->connect_errno</label>
-
 _END;
                 exit();
             }
