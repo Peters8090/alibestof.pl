@@ -63,21 +63,23 @@ if ($result = $connection->query($sql)) {
         else if(file_exists($imgPath.".gif"))
             $imgPath = $imgPath.".gif";
         echo <<< _END
-        <div class="card mb-3" >
-          <div class="row no-gutters">
-            <div class="col-md-4">
-              <img src="{$imgPath}" class="card-img w-50  img-thumbnail" alt="...">
-            </div>
-            <div class="col-md-8">
-              <div class="card card-body h-100 justify-content-center">
-                <h5 class="card-title">{$product['name']}</h5>
-                <p class="card-text">{$product['description']}</p>
-                <form action="{$product['reflink']}">
-                    <button type="submit" class="btn btn-primary">Link</button>
-                </form>
+        <div>
+            <div class="card mb-3" >
+              <div class="row no-gutters">
+                <div class="col-md-4">
+                  <img src="{$imgPath}" class="card-img w-50 img-thumbnail" alt="{$product['name']}">
+                </div>
+                <div class="col-md-8">
+                  <div class="card card-body justify-content-center" id="productInfo-card-body">
+                    <h5 class="card-title">{$product['name']}</h5>
+                    <p class="card-text">{$product['description']}</p>
+                    <form action="{$product['reflink']}">
+                        <button type="submit" class="btn btn-primary">Link</button>
+                    </form>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
         </div>
 
         <iframe src="{$product['link']}" align="center" width="100%" height="50%" frameborder="0"></iframe>
