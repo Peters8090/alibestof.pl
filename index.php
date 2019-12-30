@@ -131,7 +131,7 @@ _END;
 
         <footer class="card">
             <div class="card-body">
-                <h5 class="card-title text-center">&copy AliBestOf 2019 | All Rights Reserved!</h5>
+                <h5 class="card-title text-center">&copy AliBestOf 2020 | All Rights Reserved!</h5>
             </div>
         </footer>
     </body>
