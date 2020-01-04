@@ -1,9 +1,9 @@
 <?php
 
-$host = "localhost";
-$db_name = "kemotto_alibestof";
-$db_user = "root";
-$db_password = "123";
+$host = "mysql43.mydevil.net";
+$db_name = "m1121_alibestof";
+$db_user = "m1121_kemotto";
+$db_password = "Beatka1190";
 
 $table_products="products";
 

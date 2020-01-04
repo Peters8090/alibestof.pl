@@ -13,11 +13,11 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-            crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
             integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
 
     <script>
@@ -128,43 +128,52 @@ _END;
             if ($currentPage == 1) {
                 echo <<< _END
                         <li class="page-item disabled">
-                              <a class="page-link" href="#" aria-disabled="true">Previous</a>
+                              <a class="page-link" href="#" aria-disabled="true"><</a>
                             </li>
 _END;
             } else {
                 $previous = $currentPage - 1;
                 echo <<< _END
                         <li class="page-item">
-      <a class="page-link" href="index.php?page=$previous">Previous</a>
+      <a class="page-link" href="index.php?page=$previous"><</a>
     </li>
 _END;
             }
 
             for ($i = 1; $i <= $totalPages; $i++) {
+                if ($i == 1 || $i == $totalPages || $i == $currentPage || $i == $currentPage - 1 || $i == $currentPage + 1) {
+                    if ($i == $totalPages) {
+                        echo <<< _END
+                        <form action="index.php">
+                            <input type="number" placeholder="..." min="1" max="$totalPages" class="pagination-number-input" name="page" onKeyDown="if(this.value.length==2 && event.keyCode>47 && event.keyCode < 58)return false;">
+                            <input type="submit" id="pagination-number-submit">
+                        </form>
+_END;
+                    }
 
-
-                if ($i == $currentPage) {
-                    echo <<< _END
+                    if ($i == $currentPage) {
+                        echo <<< _END
                         <li class="page-item active"><a class="page-link" href="#">$i</a></li>
 _END;
-                } else {
-                    echo <<< _END
+                    } else {
+                        echo <<< _END
                         <li class="page-item"><a class="page-link" href="index.php?page=$i">$i</a></li>
 _END;
+                    }
                 }
             }
 
             if ($currentPage == $totalPages) {
                 echo <<< _END
                         <li class="page-item disabled">
-                              <a class="page-link" href="#" aria-disabled="true">Next</a>
+                              <a class="page-link" href="#" aria-disabled="true">></a>
                             </li>
 _END;
             } else {
                 $next = $currentPage + 1;
                 echo <<< _END
                         <li class="page-item">
-      <a class="page-link" href="index.php?page=$next">Next</a>
+      <a class="page-link" href="index.php?page=$next">></a>
     </li>
 _END;
             }
