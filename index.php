@@ -146,7 +146,6 @@ _END;
                         echo <<< _END
                         <form action="index.php">
                             <input type="number" placeholder="..." min="1" max="$totalPages" class="pagination-number-input" name="page" onKeyDown="if(this.value.length==2 && event.keyCode>47 && event.keyCode < 58)return false;">
-                            <input type="submit" id="pagination-number-submit">
                         </form>
 _END;
                     }
