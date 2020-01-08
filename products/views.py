@@ -8,5 +8,6 @@ def user_profile_view(request, username):
     products = Product.objects.filter(user__username__exact=username)
     context = {
         'products': products,
+        'username': username,
     }
     return render(request, 'products/user_profile.html', context)

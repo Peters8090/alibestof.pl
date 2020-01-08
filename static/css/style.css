@@ -3,10 +3,6 @@
     src: url("../fonts/AvenirLTStd-Book.otf") format("opentype");
 }
 
-.hfdj {
-    color: red !important;
-}
-
 .title {
     width: 15rem;
     height: 5rem;;
