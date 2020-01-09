@@ -1,11 +1,34 @@
 {% extends 'base.html' %}
 
-{% block title %} {{ username }} {% endblock %}
+{% block title %}
+    {{ username }}
+{% endblock %}
 
 {% block content %}
-    {% for product in products %}
-        {{ product.image.url }}
-        <img src="{{ product.image.url }}" alt="{{ product.name }}">
-        <br>
-    {% endfor %}
+    <nav class="container-md sticky-top">
+        <form action="{% url 'products:user_profile_search' username %}" method="get">
+            <div class="input-group mb-3">
+                <input type="text" name="query" class="form-control" placeholder="Search for products..."
+                       aria-label="Search for products...">
+                <button type="submit" class="btn btn-primary">&#x1F50D</button>
+            </div>
+        </form>
+    </nav>
+
+    <article class="text-center">
+        {% for product in products %}
+            <div class="product">
+                <div class="card">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}"/>
+                    <div class="card-body">
+                        <input type="text" class="form-control" readonly="readonly" value="{{ product.name }}"/>
+                        <input type="hidden" name="id" value="{{ product.pk }}"/>
+                        <button type="submit" class="btn btn-primary">More</button>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+        {% endfor %}
+    </article>
 {% endblock %}
