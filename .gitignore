@@ -2,6 +2,8 @@
 
 .idea/
 alibestof_pl/important_data.txt
+public/static/
+public/media/
 
 
 # https://github.com/github/gitignore/blob/master/Python.gitignore

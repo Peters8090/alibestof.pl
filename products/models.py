@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class Product(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False, null=False)
     name = models.CharField(max_length=200)
     description = models.CharField(max_length=2000, blank=True)
     image = models.ImageField(upload_to='')
