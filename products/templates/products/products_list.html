@@ -38,4 +38,44 @@
             </div>
         {% endif %}
     </article>
+    <nav class="pt-4">
+        <ul class="pagination justify-content-center">
+            {% if products_paginator_current_page.has_previous %}
+                <li class="page-item">
+                    <a class="page-link"
+                       href="{% url 'products:products_list' username products_paginator_current_page.previous_page_number %}"><</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link"
+                       href=""><</a>
+                </li>
+            {% endif %}
+
+            {% for i in products_paginator.page_range %}
+                {% if i == products_paginator_current_page.number %}
+                    <li class="page-item active">
+                        <a class="page-link" href="">{{ i }}</a>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="{% url 'products:products_list' username i %}">{{ i }}</a>
+                    </li>
+                {% endif %}
+
+            {% endfor %}
+
+            {% if products_paginator_current_page.has_next %}
+                <li class="page-item">
+                    <a class="page-link"
+                       href="{% url 'products:products_list' username products_paginator_current_page.next_page_number %}">></a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link"
+                       href="">></a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
 {% endblock %}
