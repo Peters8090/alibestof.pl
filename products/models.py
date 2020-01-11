@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils import timezone
 
 
 class Product(models.Model):
@@ -10,7 +9,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to='')
     reflink = models.URLField(max_length=1000, blank=True)
     link = models.URLField(max_length=1000, blank=True)
-    date_created = models.DateTimeField(default=timezone.now, editable=False)
+    date_created = models.DateTimeField(auto_now_add=True, editable=False)
     published = models.BooleanField(default=True)
 
     def __str__(self):
