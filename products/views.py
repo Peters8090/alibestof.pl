@@ -10,24 +10,11 @@ from base.models import Configuration
 from .forms import ProductSearch
 
 
-# def products_list(request, username, page=1):
-#     form = ProductSearch()
-#
-#     context = {
-#         'username': username,
-#         'products': products,
-#         'products_paginator': products_paginator,
-#         'products_paginator_current_page': products_paginator_current_page,
-#         'form': form,
-#     }
-#     return render(request, 'products/products_list.html', context)
-
-
 def products_list(request, username, page=1):
     products = Product.objects.filter(user__username__exact=username)
     if request.GET.get('query') is not None:
-        products = products.filter(Q(name__contains=request.GET.get('query')) |
-                                   Q(description__contains=request.GET.get('query')))
+        products = products.filter(Q(name__icontains=request.GET.get('query')) |
+                                   Q(description__icontains=request.GET.get('query')))
 
     products_paginator = Paginator(products, Configuration.get_configuration().products_per_page)
     products_paginator_current_page = Paginator(products,
@@ -42,8 +29,7 @@ def products_list(request, username, page=1):
         'products_paginator': products_paginator,
         'products_paginator_current_page': products_paginator_current_page,
         'form': form,
-        'request': request,
-        'abool': True,
+        'requestText': request.build_absolute_uri().split('/')[-1].translate(str.maketrans('', '', '0123456789')),
     }
     return render(request, 'products/products_list.html', context)
 
