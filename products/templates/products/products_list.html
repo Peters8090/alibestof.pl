@@ -42,9 +42,9 @@
         <ul class="pagination justify-content-center">
             {% if products_paginator_current_page.has_previous %}
                 <li class="page-item">
-                    <a class="page-link" href="
-
-                            {% url 'products:products_list' username products_paginator_current_page.previous_page_number %}{{ requestText }}"><</a>
+                    <!--@formatter:off-->
+                        <a class="page-link" href="{% url 'products:products_list' username products_paginator_current_page.previous_page_number %}{{ requestText }}"><</a>
+                    <!--@formatter:on-->
                 </li>
             {% else %}
                 <li class="page-item disabled">
@@ -58,7 +58,11 @@
                     <li class="page-item active">
                         <a class="page-link" href="">{{ i }}</a>
                     </li>
-                {% else %}
+                {% elif i == 1 or i == products_paginator.count or i == products_paginator_current_page.previous_page_number or i == products_paginator_current_page.next_page_number %}
+                    {% if i == products_paginator.count %}
+                        <!-- input field-->
+                    {% endif %}
+
                     <li class="page-item">
                         <a class="page-link"
                            href="{% url 'products:products_list' username i %}{{ requestText }}">{{ i }}</a>
@@ -69,9 +73,9 @@
 
             {% if products_paginator_current_page.has_next %}
                 <li class="page-item">
-                    <a class="page-link" href="
-
-                            {% url 'products:products_list' username products_paginator_current_page.next_page_number %}{{ requestText }}">></a>
+                    <!--@formatter:off-->
+                        <a class="page-link" href="{% url 'products:products_list' username products_paginator_current_page.next_page_number %}{{ requestText }}">></a>
+                    <!--@formatter:on-->
                 </li>
             {% else %}
                 <li class="page-item disabled">
