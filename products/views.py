@@ -4,6 +4,7 @@ from django.shortcuts import render, reverse
 from django.shortcuts import get_list_or_404
 from django.core.paginator import Paginator
 from django.views import generic
+from django.http import Http404
 
 from .models import Product
 from base.models import Configuration
@@ -11,10 +12,11 @@ from .forms import ProductSearch
 
 
 def products_list(request, username, page=1):
-    products = Product.objects.filter(user__username__exact=username)
+    products = Product.objects.filter(user__username__exact=username,
+                                      published=True)
     if request.GET.get('query') is not None:
         products = products.filter(Q(name__icontains=request.GET.get('query')) |
-                                   Q(description__icontains=request.GET.get('query')))
+                                   Q(description__icontains=request.GET.get('query'))).order_by('date_created').reverse()
 
     products_paginator = Paginator(products, Configuration.get_configuration().products_per_page)
     products_paginator_current_page = Paginator(products,
@@ -36,3 +38,9 @@ def products_list(request, username, page=1):
 
 class ProductDetailView(generic.DetailView):
     model = Product
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductDetailView, self).get_context_data(**kwargs)
+        if context['product'].published is False:
+            raise Http404('No product found matching the query')
+        return context

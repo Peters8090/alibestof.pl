@@ -6,8 +6,8 @@ from .models import Product
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'id',  'description', 'user', 'date_created', 'published')
-    list_filter = ['user', 'date_created', 'published']
+    list_display = ('name', 'id',  'description', 'user', 'date_modified', 'date_created', 'published')
+    list_filter = ['user', 'date_created', 'date_modified', 'published']
     search_fields = ['name', 'description']
 
     # display only products the user owns
@@ -24,4 +24,5 @@ class ProductAdmin(admin.ModelAdmin):
             obj.user
         except ObjectDoesNotExist:
             obj.user = request.user
+        print(change)
         super().save_model(request, obj, form, change)

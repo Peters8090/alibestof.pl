@@ -1,1 +1,10 @@
-{{ product.name }}
+{% extends 'base/base.html' %}
+{% block title %}
+    Product ID {{ product.id }}
+{% endblock %}
+
+{% block content %}
+
+    {{ product }}
+
+{% endblock %}

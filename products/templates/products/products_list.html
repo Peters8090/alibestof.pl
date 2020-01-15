@@ -21,22 +21,22 @@
         </form>
     </nav>
     <article class="text-center">
-        {% for product in products %}
-            {% if product.published %}
-                <div class="product">
-                    <div class="card">
-                        <img src="{{ product.image.url }}" alt="{{ product.name }}"/>
-                        <input type="text" class="form-control" readonly="readonly" value="{{ product.name }}"/>
-                        <a class="btn btn-primary" href="{% url "products:product_detail" product.pk %}" role="button">More</a>
-                    </div>
-                </div>
-            {% endif %}
-        {% endfor %}
         {% if not products %}
             <div class="alert alert-danger" role="alert">
-                No Product matches the given query.
+                No product found matching the query.
             </div>
         {% endif %}
+
+        {% for product in products %}
+            <div class="product">
+                <div class="card">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}"/>
+                    <input type="text" class="form-control" readonly="readonly" value="{{ product.name }}"/>
+                    <a class="btn btn-primary" href="{% url "products:product_detail" product.pk %}"
+                       role="button">More</a>
+                </div>
+            </div>
+        {% endfor %}
     </article>
     <nav class="pt-4">
         <ul class="pagination justify-content-center">
