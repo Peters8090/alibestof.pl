@@ -15,7 +15,7 @@
         </form>-->
         <form action="{% url 'products:products_list' username %}" method="get">
             <div class="input-group mb-3">
-                {{ form }}
+                {{ product_search_form }}
                 <button type="submit" class="btn btn-primary">&#x1F50D</button>
             </div>
         </form>
@@ -43,7 +43,7 @@
             {% if products_paginator_current_page.has_previous %}
                 <li class="page-item">
                     <!--@formatter:off-->
-                        <a class="page-link" href="{% url 'products:products_list' username products_paginator_current_page.previous_page_number %}{{ requestText }}"><</a>
+                        <a class="page-link" href="{% url 'products:products_list' username products_paginator_current_page.previous_page_number %}{{ request_text }}"><</a>
                     <!--@formatter:on-->
                 </li>
             {% else %}
@@ -54,19 +54,27 @@
             {% endif %}
 
             {% for i in products_paginator.page_range %}
-                {% if i == products_paginator_current_page.number %}
-                    <li class="page-item active">
-                        <a class="page-link" href="">{{ i }}</a>
-                    </li>
-                {% elif i == 1 or i == products_paginator.count or i == products_paginator_current_page.previous_page_number or i == products_paginator_current_page.next_page_number %}
-                    {% if i == products_paginator.count %}
-                        <!-- input field-->
+
+                {% if i == 1 or i == products_paginator.count or i == products_paginator_current_page.previous_page_number or i == products_paginator_current_page.next_page_number or i == products_paginator_current_page.number %}
+                    {% if i == products_paginator.count and products_paginator.count > 1 %}
+                        <form action="{% url 'products:products_list_pagination_custom_page_redirect' username %}" method="get">
+                            <input type="hidden" name="request_text" value="{{ request_text }}">
+                            <input type="number" name="page" class="pagination-number-input"
+                                   placeholder="..." min="1" max="{{ products_paginator.count }}"
+                                   onKeyDown="if(this.value.length==2 && event.keyCode>47 && event.keyCode < 58)return false;">
+                        </form>
                     {% endif %}
 
-                    <li class="page-item">
-                        <a class="page-link"
-                           href="{% url 'products:products_list' username i %}{{ requestText }}">{{ i }}</a>
-                    </li>
+                    {% if i == products_paginator_current_page.number %}
+                        <li class="page-item active">
+                            <a class="page-link" href="">{{ i }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="{% url 'products:products_list' username i %}{{ request_text }}">{{ i }}</a>
+                        </li>
+                    {% endif %}
                 {% endif %}
 
             {% endfor %}
@@ -74,7 +82,7 @@
             {% if products_paginator_current_page.has_next %}
                 <li class="page-item">
                     <!--@formatter:off-->
-                        <a class="page-link" href="{% url 'products:products_list' username products_paginator_current_page.next_page_number %}{{ requestText }}">></a>
+                        <a class="page-link" href="{% url 'products:products_list' username products_paginator_current_page.next_page_number %}{{ request_text }}">></a>
                     <!--@formatter:on-->
                 </li>
             {% else %}
