@@ -6,13 +6,6 @@
 
 {% block content %}
     <nav class="container-md sticky-top">
-        <!--<form action="% url 'products:products_list_search' username %" method="get">
-            <div class="input-group mb-3">
-                <input type="text" name="query" class="form-control" placeholder="Search for products..."
-                       aria-label="Search for products...">
-                <button type="submit" class="btn btn-primary">&#x1F50D</button>
-            </div>
-        </form>-->
         <form action="{% url 'products:products_list' username %}" method="get">
             <div class="input-group mb-3">
                 {{ product_search_form }}
@@ -57,11 +50,12 @@
 
                 {% if i == 1 or i == products_paginator.count or i == products_paginator_current_page.previous_page_number or i == products_paginator_current_page.next_page_number or i == products_paginator_current_page.number %}
                     {% if i == products_paginator.count and products_paginator.count > 1 %}
-                        <form action="{% url 'products:products_list_pagination_custom_page_redirect' username %}" method="get">
+                        <form action="{% url 'products:products_list_pagination_custom_page_redirect' username %}"
+                              method="get">
                             <input type="hidden" name="request_text" value="{{ request_text }}">
                             <input type="number" name="page" class="pagination-number-input"
                                    placeholder="..." min="1" max="{{ products_paginator.count }}"
-                                   onKeyDown="if(this.value.length==2 && event.keyCode>47 && event.keyCode < 58)return false;">
+                                   onKeyDown="if(this.value.length===2 && event.keyCode>47 && event.keyCode < 58) return false;">
                         </form>
                     {% endif %}
 
