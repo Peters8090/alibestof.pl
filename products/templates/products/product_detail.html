@@ -7,10 +7,10 @@
     {% url 'products:products_list' product.user.username %}
 {% endblock %}
 
+{% block add_title_text %} - {{ product.user.username }}{% endblock %}
+
 {% block content %}
     <article class="text-center">
-        {#        <a class="btn btn-primary btn-sm mb-3" href="{% url 'products:products_list' product.user.username %}"#}
-        {#           role="button">View all {{ product.user.username }}'s products</a>#}
         <div>
             <div class="card mb-3">
                 <div class="row no-gutters">

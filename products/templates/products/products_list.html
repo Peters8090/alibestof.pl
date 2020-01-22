@@ -8,6 +8,8 @@
     {% url 'products:products_list' username %}
 {% endblock %}
 
+{% block add_title_text %} - {{ username }}{% endblock %}
+
 {% block content %}
     <nav class="container-md sticky-top">
         <form action="{% url 'products:products_list' username %}" method="get">

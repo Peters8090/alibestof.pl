@@ -7,11 +7,11 @@ p {
     white-space: pre-wrap !important;
 }
 
+header {
+    padding: 2rem;
+}
+
 .title {
-    width: 15rem;
-    height: 5rem;;
-    margin: 2rem;
-    display: block;
     text-decoration: none !important;
 }
 
@@ -22,7 +22,7 @@ p {
 }
 
 .title > .h1 {
-    font-family: AvenirLTS;
+    font-family: 'AvenirLTS';
     color: #E62F05;
     display:inline-block;
 }

@@ -29,8 +29,7 @@
     </script>
     <script src="//js.mamydirect.com/js/?h=kJlyQUb9" type="text/javascript" async></script>
 
-    <script type="text/javascript" id="cookieinfo"
-            src="//cookieinfoscript.com/js/cookieinfo.min.js">
+    <script type="text/javascript" id="cookieinfo" src="//cookieinfoscript.com/js/cookieinfo.min.js">
     </script>
 
 
@@ -43,8 +42,11 @@
 <header>
     <a href="{% block logo_href %}/{% endblock %}" class="title">
         <img src="{% static "base/img/icons/icon.png" %}"/>
-        <p class="h1">liBestOf</p>
+        <p class="h1">liBestOf{% block add_title_text %}{% endblock %}</p>
     </a>
+    <br>
+    <a class="btn btn-primary btn-sm ml-5" href="/"
+       role="button">Homepage</a>
 </header>
 
 {% block content %}
