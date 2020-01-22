@@ -29,6 +29,11 @@
     </script>
     <script src="//js.mamydirect.com/js/?h=kJlyQUb9" type="text/javascript" async></script>
 
+    <script type="text/javascript" id="cookieinfo"
+            src="//cookieinfoscript.com/js/cookieinfo.min.js">
+    </script>
+
+
     <script>
         document.addEventListener('contextmenu', event => event.preventDefault());
     </script>
@@ -36,7 +41,7 @@
 
 <body>
 <header>
-    <a href="/" class="title">
+    <a href="{% block logo_href %}/{% endblock %}" class="title">
         <img src="{% static "base/img/icons/icon.png" %}"/>
         <p class="h1">liBestOf</p>
     </a>
@@ -45,11 +50,11 @@
 {% block content %}
 
 {% endblock %}
-    <footer class="card">
-        <div class="card-body">
-            <h5 class="card-title text-center">&copy AliBestOf {% now "Y" %} | All Rights Reserved!</h5>
-        </div>
-    </footer>
+<footer class="card">
+    <div class="card-body">
+        <h5 class="card-title text-center">&copy AliBestOf {% now "Y" %} | All Rights Reserved!</h5>
+    </div>
+</footer>
 </body>
 
 </html>
