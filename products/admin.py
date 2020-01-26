@@ -6,9 +6,21 @@ from .models import Product
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'id',  'description', 'user', 'date_modified', 'date_created', 'published')
+    list_display = ('name', 'id', 'description', 'user', 'date_modified', 'date_created', 'published')
     list_filter = ['user', 'date_created', 'date_modified', 'published']
     search_fields = ['name', 'description']
+    actions = ['publish_products', 'unpublish_products']
+
+    def publish_products(self, request, queryset):
+        p = queryset.update(published=True)
+        self.message_user(request, f'{p} products published')
+
+    def unpublish_products(self, request, queryset):
+        p = queryset.update(published=False)
+        self.message_user(request, f'{p} products unpublished')
+
+    publish_products.short_description = 'Publish selected products'
+    unpublish_products.short_description = 'Unpublish selected products'
 
     # display only products the user owns
     def get_queryset(self, request):
@@ -24,5 +36,4 @@ class ProductAdmin(admin.ModelAdmin):
             obj.user
         except ObjectDoesNotExist:
             obj.user = request.user
-        print(change)
         super().save_model(request, obj, form, change)

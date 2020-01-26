@@ -1,4 +1,10 @@
 {% extends 'base/base.html' %}
+
+{% load static %}
+{% block add_css %}
+    {% static 'products/css/product_detail_style.css' %}
+{% endblock %}
+
 {% block title %}
     Product ID {{ product.id }}
 {% endblock %}
@@ -7,7 +13,7 @@
     {% url 'products:products_list' product.user.username %}
 {% endblock %}
 
-{% block add_title_text %} - {{ product.user.username }}{% endblock %}
+{% block add_title_text %}{{ product.user.username }}'s profile{% endblock %}
 
 {% block content %}
     <article class="text-center">

@@ -1,0 +1,29 @@
+@font-face {
+    font-family: 'AvenirLTS';
+    src: url("../fonts/AvenirLTStd-Book.otf") format("opentype");
+}
+
+p {
+    white-space: pre-wrap !important;
+}
+
+header {
+    padding: 2rem;
+    font-family: 'AvenirLTS', serif;
+    color: #E62F05;
+}
+
+.title {
+    text-decoration: none !important;
+}
+
+.title > img {
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 1.2rem;
+}
+
+.title > p {
+    color: #E62F05;
+    display: inline-block;
+}

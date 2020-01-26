@@ -13,7 +13,7 @@ class Product(models.Model):
     published = models.BooleanField(default=True)
 
     class Meta:
-        ordering = ['-date_created']
+        ordering = ['-date_modified']
 
     def __str__(self):
         return self.name

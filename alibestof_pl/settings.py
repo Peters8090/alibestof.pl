@@ -15,7 +15,8 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-IMPORTANT_DATA = open(os.path.join(BASE_DIR, 'alibestof_pl/important_data.txt')).read().split('\n')  # own
+# Own
+IMPORTANT_DATA = open(os.path.join(BASE_DIR, 'alibestof_pl/important_data.txt')).read().split('\n')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -129,10 +130,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "public/static/")
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "main/../base/static"),
-]
 
 MEDIA_URL = '/media/'
 

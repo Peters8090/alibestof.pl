@@ -11,7 +11,8 @@
     <meta name="viewport" content="width=device-width"/>
 
     {% load static %}
-    <link rel="stylesheet" href="{% static "base/css/style.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static "base/css/base_style.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% block add_css %} {% endblock %}" type="text/css">
     <link href="{% static "base/img/icons/icon.png" %}" rel="shortcut icon">
     <link href="https://fonts.googleapis.com/css?family=Nunito|Open+Sans&display=swap" rel="stylesheet">
 
@@ -42,8 +43,10 @@
 <header>
     <a href="{% block logo_href %}/{% endblock %}" class="title">
         <img src="{% static "base/img/icons/icon.png" %}"/>
-        <p class="h1">liBestOf{% block add_title_text %}{% endblock %}</p>
+        <p class="h1">liBestOf</p>
     </a>
+    <br>
+    <p class="h3">{% block add_title_text %}{% endblock %}</p>
     <br>
     <a class="btn btn-primary btn-sm ml-5" href="/"
        role="button">Homepage</a>
