@@ -4,6 +4,7 @@ from django.shortcuts import render, reverse, redirect
 from django.core.paginator import Paginator
 from django.views import generic
 from django.http import Http404
+from django.contrib.auth.models import User
 
 from .models import Product
 from base.models import Configuration
@@ -11,6 +12,9 @@ from .forms import ProductSearchForm
 
 
 def products_list(request, username, page=1):
+    if not User.objects.filter(username=username):
+        raise Http404('No such User found')
+
     products = Product.objects.filter(user__username__exact=username,
                                       published=True)
     if request.GET.get('query') is not None:
