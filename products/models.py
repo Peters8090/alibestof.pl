@@ -1,6 +1,21 @@
 from django.db import models
 from django.contrib.auth.models import User
 from base.models import Configuration
+from django.core.exceptions import ValidationError
+
+
+def product_link_validator(value):
+    if not any(ext in value for ext in Configuration.get_configuration().product_link_validator.split('\r\n')):
+        raise ValidationError(
+            'You must include ' + Configuration.get_configuration().product_link_validator.replace('\r\n',
+                                                                                                   ' or ') + ' in your product link')
+
+
+def photos_link_validator(value):
+    if not any(ext in value for ext in Configuration.get_configuration().photos_link_validator.split('\r\n')):
+        raise ValidationError(
+            'You must include ' + Configuration.get_configuration().photos_link_validator.replace('\r\n',
+                                                                                                  ' or ') + ' in your photos link')
 
 
 class Product(models.Model):
@@ -9,8 +24,8 @@ class Product(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='products/')
-    product_link = models.URLField(max_length=1000)
-    photos_link = models.URLField(max_length=1000)
+    product_link = models.URLField(max_length=1000, validators=[product_link_validator])
+    photos_link = models.URLField(max_length=1000, validators=[photos_link_validator])
     date_created = models.DateTimeField(auto_now_add=True, editable=False)
     date_modified = models.DateTimeField(auto_now=True, editable=False)
     published = models.BooleanField(default=True)
