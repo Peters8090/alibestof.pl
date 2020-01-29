@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'alibestof_pl.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'm1024_baza',
+        'NAME': 'm1024_alibestof',
         'USER': 'm1024_Peters8090',
         'PASSWORD': IMPORTANT_DATA[1],
         'HOST': 'mysql43.mydevil.net',

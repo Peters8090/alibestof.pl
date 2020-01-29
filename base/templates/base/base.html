@@ -25,14 +25,7 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
 
-    <script>
-        window.ao_subid = "";
-    </script>
-    <script src="//js.mamydirect.com/js/?h=kJlyQUb9" type="text/javascript" async></script>
-
-    <script type="text/javascript" id="cookieinfo" src="//cookieinfoscript.com/js/cookieinfo.min.js">
-    </script>
-
+    <script type="text/javascript" id="cookieinfo" src="//cookieinfoscript.com/js/cookieinfo.min.js"></script>
 
     <script>
         document.addEventListener('contextmenu', event => event.preventDefault());
@@ -44,11 +37,11 @@
     <a href="{% block logo_href %}/{% endblock %}" class="title">
         <img src="{% static "base/img/icons/icon.png" %}"/>
         <p class="h1">liBestOf</p>
+        <br>
+        <p class="h3">{% block add_title_text %}{% endblock %}</p>
     </a>
     <br>
-    <p class="h3">{% block add_title_text %}{% endblock %}</p>
-    <br>
-    <a class="btn btn-primary btn-sm ml-5" href="/"
+    <a class="btn btn-primary btn-sm ml-5 mt-3" href="/"
        role="button">Homepage</a>
 </header>
 
