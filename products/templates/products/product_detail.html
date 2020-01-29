@@ -21,18 +21,26 @@
             <div class="card mb-3">
                 <div class="row no-gutters">
                     <div class="col-md-4">
-                        <img src="{{ product.image.url }}" class="card-img w-50 img-thumbnail product-info-img" alt="{{ product.name }}">
+                        <img src="{{ product.image.url }}" class="card-img w-50 img-thumbnail product-info-img"
+                             alt="{{ product.name }}">
                     </div>
                     <div class="col-md-8">
                         <div class="card card-body justify-content-center product-info-card-body">
                             <h5 class="card-title">{{ product.name }}</h5>
                             <p class="card-text">{{ product.description }}</p>
+                            {% if product.user.is_superuser %}
+                                <div>
+                                    <a class="btn btn-primary" href="{{ product.product_link }}" role="button">Link</a>
+                                </div>
+                            {% else %}
+                                <a href="{{ product.product_link }}">{{ product.product_link }}</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <iframe class="product-info-iframe" src="{{ product.link }}"></iframe>
+        <iframe class="product-info-iframe" src="{{ product.photos_link }}"></iframe>
 
     </article>
 {% endblock %}

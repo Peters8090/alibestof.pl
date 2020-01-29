@@ -9,7 +9,8 @@ class Product(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='products/')
-    link = models.URLField(max_length=1000)
+    product_link = models.URLField(max_length=1000)
+    photos_link = models.URLField(max_length=1000)
     date_created = models.DateTimeField(auto_now_add=True, editable=False)
     date_modified = models.DateTimeField(auto_now=True, editable=False)
     published = models.BooleanField(default=True)
@@ -34,7 +35,8 @@ class Product(models.Model):
                             name=self.name,
                             description=self.description,
                             image=self.image,
-                            link=self.link,
+                            product_link=self.product_link,
+                            photos_link=self.photos_link,
                             date_created=self.date_created,
                             date_modified=self.date_modified,
                             published=False)

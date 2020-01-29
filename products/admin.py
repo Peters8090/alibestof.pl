@@ -6,7 +6,7 @@ from .models import Product
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'id', 'description', 'user', 'author', 'date_modified', 'date_created', 'published')
+    list_display = ('name', 'id', 'user', 'author', 'date_modified', 'date_created', 'published')
     list_filter = ['user', 'author', 'date_created', 'date_modified', 'published']
     search_fields = ['name', 'description']
     actions = ['publish_products', 'unpublish_products']
