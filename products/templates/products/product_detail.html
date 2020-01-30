@@ -17,6 +17,10 @@
 
 {% block content %}
     <article class="text-center">
+        {% if request.user == product.user %}
+            <a href="{% url 'admin:products_product_change' product.pk %}" class="btn btn-info btn-lg btn-block mb-2"
+               role="button">Edit product</a>
+        {% endif %}
         <div>
             <div class="card mb-3">
                 <div class="row no-gutters">
@@ -30,7 +34,7 @@
                             <p class="card-text">{{ product.description }}</p>
                             {% if product.user.is_superuser %}
                                 <div>
-                                    <a class="btn btn-primary" href="{{ product.product_link }}" role="button">Link</a>
+                                    <a class="btn btn-outline-primary" href="{{ product.product_link }}" role="button">Link</a>
                                 </div>
                             {% else %}
                                 <a href="{{ product.product_link }}">{{ product.product_link }}</a>

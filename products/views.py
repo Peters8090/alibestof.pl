@@ -65,4 +65,5 @@ class ProductDetailView(generic.DetailView):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
         if context['product'].published is False:
             raise Http404('No product found matching the query')
+        context['request'] = self.request
         return context

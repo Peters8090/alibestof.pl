@@ -4,9 +4,12 @@ from django.contrib.auth.models import User
 
 
 class Configuration(models.Model):
-    products_per_page = models.IntegerField(default=20, verbose_name='Products Per Page')
-    product_duplication_superuser = models.ForeignKey(User, on_delete=models.SET_NULL, blank=False, null=True,
-                                                      verbose_name='Product Duplication Superuser')
+    home_page_user = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='home_page_user', blank=False,
+                                       null=True)
+    product_duplication_superuser = models.ForeignKey(User, on_delete=models.SET_NULL,
+                                                      related_name='product_duplication_superuser', blank=False,
+                                                      null=True)
+    products_per_page = models.IntegerField(default=20)
     product_link_validator = models.TextField(max_length=1000)
     photos_link_validator = models.TextField(max_length=1000)
 
