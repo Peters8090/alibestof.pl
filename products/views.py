@@ -11,6 +11,12 @@ from base.models import Configuration
 from .forms import ProductSearchForm
 
 
+def home_page(request):
+    return HttpResponseRedirect(
+        reverse('products:products_list',
+                kwargs={'username': Configuration.get_configuration().home_page_user.username}))
+
+
 def products_list(request, username, page=1):
     if not User.objects.filter(username=username):
         raise Http404('No such User found')
