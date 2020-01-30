@@ -9,11 +9,10 @@
     Product ID {{ product.id }}
 {% endblock %}
 
-{% block logo_href %}
+{% block add_href_text %}{{ product.user.username }}'s profile{% endblock %}
+{% block add_href %}
     {% url 'products:products_list' product.user.username %}
 {% endblock %}
-
-{% block add_title_text %}{{ product.user.username }}'s profile{% endblock %}
 
 {% block content %}
     <article class="text-center">

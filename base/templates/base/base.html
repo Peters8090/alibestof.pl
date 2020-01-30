@@ -34,15 +34,14 @@
 
 <body>
 <header>
-    <a href="{% block logo_href %}/{% endblock %}" class="title">
+    <a href="/" class="title">
         <img src="{% static "base/img/icons/icon.png" %}"/>
         <p class="h1">liBestOf</p>
-        <br>
-        <p class="h3">{% block add_title_text %}{% endblock %}</p>
     </a>
     <br>
-    <a class="btn btn-primary btn-sm ml-5 mt-3" href="/"
-       role="button">Homepage</a>
+    <a href="{% block add_href %}{% endblock %}" class="title">
+        <p class="h3">{% block add_href_text %}{% endblock %}</p>
+    </a>
 </header>
 
 {% block content %}
