@@ -13,7 +13,7 @@ header {
     color: #E62F05;
 }
 
-.title {
+a {
     text-decoration: none !important;
 }
 
@@ -26,4 +26,9 @@ header {
 .title > p {
     color: #E62F05;
     display: inline-block;
+}
+
+.social-button {
+    width: 2rem;
+    height: 2rem;
 }

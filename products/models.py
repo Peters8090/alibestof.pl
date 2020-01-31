@@ -23,7 +23,7 @@ class Product(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='author', editable=False)
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to='products/')
+    image = models.ImageField(upload_to='products/products')
     product_link = models.URLField(max_length=1000, validators=[product_link_validator])
     photos_link = models.URLField(max_length=1000, validators=[photos_link_validator])
     date_created = models.DateTimeField(auto_now_add=True, editable=False)
