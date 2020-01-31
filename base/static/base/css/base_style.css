@@ -28,6 +28,10 @@ a {
     display: inline-block;
 }
 
+.footer-text {
+    display: inline-block !important;
+}
+
 .social-button {
     width: 2rem;
     height: 2rem;

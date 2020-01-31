@@ -15,7 +15,19 @@ class SocialLinksInline(admin.TabularInline):
 @admin.register(Configuration)
 class ConfigurationAdmin(admin.ModelAdmin):
     inlines = [SocialLinksInline]
+    fieldsets = (
+        ('Basic', {
+            'fields': ('home_page_user', 'product_duplication_superuser')
+        }),
+        ('Displaying products', {
+            'fields': (
+                'products_per_page',
+                'product_link_validator',
+                'photos_link_validator',)
+        }),
+    )
 
+    # There can be only one Configuration
     def has_add_permission(self, request):
         if self.model.objects.count() > 0:
             return False

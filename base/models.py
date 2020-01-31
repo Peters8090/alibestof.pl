@@ -10,8 +10,8 @@ class Configuration(models.Model):
                                                       related_name='product_duplication_superuser', blank=False,
                                                       null=True)
     products_per_page = models.IntegerField(default=20)
-    product_link_validator = models.TextField(max_length=1000)
-    photos_link_validator = models.TextField(max_length=1000)
+    product_link_validator = models.TextField(max_length=1000, blank=True)
+    photos_link_validator = models.TextField(max_length=1000, blank=True)
 
     def __str__(self):
         return 'Site configuration'
@@ -22,7 +22,7 @@ class Configuration(models.Model):
 
 
 class SocialLink(models.Model):
-    name = models.CharField(max_length=100)
     configuration = models.ForeignKey(Configuration, on_delete=models.CASCADE)
-    link = models.URLField()
+    name = models.CharField(max_length=100)
     image = models.ImageField(upload_to='base/social-links/')
+    link = models.URLField()
