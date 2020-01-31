@@ -52,13 +52,16 @@
         <h5 class="card-title" style="display: inline-block !important;">&copy AliBestOf {% now "Y" %} | All Rights
             Reserved! | Find us on:</h5>
         <div class="ml-2" style="display: inline-block !important;">
-            <a href=""><img src="{% static 'base/img/icons/facebook.png' %}" class="social-button ml-1 mr-1"
-                            alt="Facebook"></a>
-            <a href=""><img src="{% static 'base/img/icons/telegram.png' %}" class="social-button ml-1 mr-1"
-                            alt="Telegram"></a>
+            {#            <a href=""><img src="{% static 'base/img/icons/facebook.png' %}" class="social-button ml-1 mr-1"#}
+            {#                            alt="Facebook"></a>#}
+            {#            <a href=""><img src="{% static 'base/img/icons/telegram.png' %}" class="social-button ml-1 mr-1"#}
+            {#                            alt="Telegram"></a>#}
+            {% for social_link in social_links %}
+                <a href="{{ social_link.link }}"><img src="{{ social_link.image.url }}" class="social-button ml-1 mr-1"
+                                alt="{{ social_link.name }}"></a>
+            {% endfor %}
         </div>
     </div>
 </footer>
 </body>
-
 </html>

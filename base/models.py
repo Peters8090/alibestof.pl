@@ -19,3 +19,10 @@ class Configuration(models.Model):
     @staticmethod
     def get_configuration():
         return get_object_or_404(Configuration)
+
+
+class SocialLink(models.Model):
+    name = models.CharField(max_length=100)
+    configuration = models.ForeignKey(Configuration, on_delete=models.CASCADE)
+    link = models.URLField()
+    image = models.ImageField(upload_to='base/social-links/')
