@@ -1,7 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
-from base.models import Configuration
 from django.core.exceptions import ValidationError
+
+from ordered_model.models import OrderedModel
+
+from base.models import Configuration
 
 
 def product_link_validator(value):
@@ -18,10 +21,32 @@ def photos_link_validator(value):
                                                                                                   ' or ') + ' in your photos link')
 
 
+class Category(OrderedModel):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+    class Meta(OrderedModel.Meta):
+        verbose_name_plural = 'Categories'
+
+
+class Subcategory(OrderedModel):
+    name = models.CharField(max_length=100)
+    parent_category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='parent_category')
+
+    def __str__(self):
+        return f'({self.parent_category}) {self.name}'
+
+    class Meta(OrderedModel.Meta):
+        verbose_name_plural = 'Subcategories'
+
+
 class Product(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user', editable=False)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='author', editable=False)
     name = models.CharField(max_length=200)
+    category = models.ForeignKey(Subcategory, related_name='category', on_delete=models.CASCADE)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='products/product')
     product_link = models.URLField(max_length=1000, validators=[product_link_validator])

@@ -1,7 +1,9 @@
 from django.contrib import admin
 from django.core.exceptions import ObjectDoesNotExist
 
-from .models import Product
+from ordered_model.admin import OrderedModelAdmin
+
+from .models import Product, Category, Subcategory
 
 
 @admin.register(Product)
@@ -37,3 +39,13 @@ class ProductAdmin(admin.ModelAdmin):
         except ObjectDoesNotExist:
             obj.user = request.user
         super().save_model(request, obj, form, change)
+
+
+@admin.register(Category)
+class CategoryAdmin(OrderedModelAdmin):
+    list_display = ('name', 'move_up_down_links')
+
+
+@admin.register(Subcategory)
+class SubcategoryAdmin(OrderedModelAdmin):
+    list_display = ('name', 'parent_category', 'move_up_down_links')
