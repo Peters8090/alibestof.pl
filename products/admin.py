@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.core.exceptions import ObjectDoesNotExist
 
-from ordered_model.admin import OrderedModelAdmin
+from ordered_model.admin import OrderedModelAdmin, OrderedTabularInline, OrderedInlineMixin, \
+    OrderedInlineModelAdminMixin
 
 from .models import Product, Category, Subcategory
 
@@ -41,11 +42,16 @@ class ProductAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 
+class SubcategoryAdmin(OrderedTabularInline):
+    model = Subcategory
+    extra = 0
+    fields = ('name', 'move_up_down_links',)
+    readonly_fields = ('move_up_down_links',)
+    sortable_by = []
+
+
 @admin.register(Category)
-class CategoryAdmin(OrderedModelAdmin):
+class CategoryAdmin(OrderedInlineModelAdminMixin, OrderedModelAdmin):
     list_display = ('name', 'move_up_down_links')
-
-
-@admin.register(Subcategory)
-class SubcategoryAdmin(OrderedModelAdmin):
-    list_display = ('name', 'parent_category', 'move_up_down_links')
+    inlines = [SubcategoryAdmin]
+    sortable_by = []
