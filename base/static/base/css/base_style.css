@@ -7,25 +7,37 @@ p {
     white-space: pre-wrap !important;
 }
 
-header {
-    padding: 2rem;
-    font-family: 'AvenirLTS', serif;
-    color: #E62F05;
-}
-
 a {
     text-decoration: none !important;
 }
 
+.title {
+    font-family: 'AvenirLTS', serif;
+    color: #F62F05;
+}
+
+.title:hover {
+    opacity: 0.6;
+}
+
+.title > .main {
+    display: inline-block;
+}
+
 .title > img {
-    width: 3rem;
-    height: 3rem;
-    margin-bottom: 1.2rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-bottom: 0.8rem;
 }
 
 .title > p {
-    color: #E62F05;
     display: inline-block;
+}
+
+@media only screen and (max-width: 700px) {
+    .title > .h5 {
+        display: block;
+    }
 }
 
 .footer-text {

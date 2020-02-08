@@ -6,7 +6,9 @@ from django.views import generic
 from django.http import Http404
 from django.contrib.auth.models import User
 
-from .models import Product
+from try_parse.utils import ParseUtils
+
+from .models import Product, Category, Subcategory
 from base.models import Configuration
 from .forms import ProductSearchForm
 
@@ -21,19 +23,21 @@ def products_list(request, username, page=1):
     if not User.objects.filter(username=username):
         raise Http404('No such User found')
 
+    # Find published products of a user
     products = Product.objects.filter(user__username__exact=username,
                                       published=True)
-    if request.GET.get('query') is not None:
-        query = request.GET.get('query')
-        if query == "":
-            return HttpResponseRedirect(
-                reverse('products:products_list', kwargs={'username': username, 'page': page, }))
 
-        try:
-            products = products.filter(pk=int(query))
-        except ValueError:
-            products = products.filter(Q(name__icontains=query) |
-                                       Q(description__icontains=query))
+    # Product Filtering - Search
+    query = request.GET.get('query')
+    if query is not None and query is not "":
+        products = products.filter(Q(pk=ParseUtils.try_parse_int(query)[1]) |
+                                   Q(name__icontains=query) |
+                                   Q(description__icontains=query))
+
+    # Product Filtering - Category
+    category = request.GET.get('category')
+    if category is not None and category is not "":
+        products = products.filter(category_id__exact=ParseUtils.try_parse_int(category)[1])
 
     products_paginator = Paginator(products, Configuration.get_configuration().products_per_page)
     products_paginator_current_page = Paginator(products,
@@ -42,12 +46,17 @@ def products_list(request, username, page=1):
 
     product_search_form = ProductSearchForm(request.GET or None)
 
+    categories = Category.objects.get_queryset()
+    subcategories = Subcategory.objects.get_queryset()
+
     context = {
         'username': username,
         'products': products,
         'products_paginator': products_paginator,
         'products_paginator_current_page': products_paginator_current_page,
         'product_search_form': product_search_form,
+        'categories': categories,
+        'subcategories': subcategories,
         'request_text': request.build_absolute_uri().split('/')[-1].translate(
             str.maketrans('', '', '0123456789')),
     }

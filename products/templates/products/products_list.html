@@ -9,22 +9,71 @@
     {{ username }}
 {% endblock %}
 
-{% block add_href_text %}{{ username }}'s profile{% endblock %}
+{% block add_href_text %} - {{ username }}'s profile{% endblock %}
 {% block add_href %}
     {% url 'products:products_list' username %}
+{% endblock %}
+
+{% block navbar-collapse-override %}form action="{% url 'products:products_list' username %}" method="get"{% endblock %}
+
+{% block navbar-items %}
+    <ul class="navbar-nav mr-auto">
+        {% for category in categories %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ category.name }}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    {% for subcategory in subcategories %}
+                        {% if subcategory.parent_category == category %}
+                            <a class="dropdown-item" href="#">{{ subcategory.name }}</a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </li>
+        {% endfor %}
+{#        <li class="nav-item active">#}
+{#            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>#}
+{#        </li>#}
+{#        <li class="nav-item">#}
+{#            <a class="nav-link" href="#">Features</a>#}
+{#        </li>#}
+{#        <li class="nav-item">#}
+{#            <a class="nav-link" href="#">Pricing</a>#}
+{#        </li>#}
+{#        <li class="nav-item">#}
+{#            <a class="nav-link" href="#">About</a>#}
+{#        </li>#}
+{#        <li class="nav-item dropdown">#}
+{#            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"#}
+{#               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+{#                Dropdown link#}
+{#            </a>#}
+{#            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">#}
+{#                <a class="dropdown-item" href="#">Action</a>#}
+{#                <a class="dropdown-item" href="#">Another action</a>#}
+{#                <a class="dropdown-item" href="#">Something else here</a>#}
+{#            </div>#}
+{#        </li>#}
+    </ul>
+    <div class="form-inline input-group">
+        {{ product_search_form }}
+        <button class="btn btn-outline-light ml-2" type="submit">&#x1F50D</button>
+    </div>
 {% endblock %}
 
 {% block content %}
     <article class="text-center">
         {% if products %}
-            <nav class="container-md sticky-top">
-                <form action="{% url 'products:products_list' username %}" method="get">
-                    <div class="input-group">
-                        {{ product_search_form }}
-                        <button type="submit" class="btn btn-primary mb-3">&#x1F50D</button>
-                    </div>
-                </form>
-            </nav>
+            {#            <nav class="container-md sticky-top">#}
+            {#                <form action="{% url 'products:products_list' username %}" method="get">#}
+            {#                    <div class="input-group">#}
+            {#                        {{ product_search_form }}#}
+            {#                        <button type="submit" class="btn btn-primary mb-3">&#x1F50D</button>#}
+            {#                    </div>#}
+            {#                </form>#}
+            {#            </nav>#}
 
             {% for product in products %}
                 <div class="product">

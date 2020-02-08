@@ -7,8 +7,10 @@ urlpatterns = [
     
     path('user/<str:username>/', views.products_list, name='products_list'),
     path('user/<str:username>/<int:page>/', views.products_list, name='products_list'),
+
     path('user/<str:username>/search/', views.products_list, name='products_list_search'),
     path('user/<str:username>/search/<int:page>/', views.products_list, name='products_list_search'),
+
     path('user/<str:username>/custom_page/', views.products_list_pagination_custom_page_redirect,
          name='products_list_pagination_custom_page_redirect'),
 ]

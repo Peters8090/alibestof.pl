@@ -3,3 +3,4 @@ django-cleanup
 mysqlclient
 Pillow
 django-ordered-model
+try-parse

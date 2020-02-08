@@ -33,16 +33,47 @@
 </head>
 
 <body>
-<header>
-    <a href="/" class="title">
-        <img src="{% static "base/img/icons/icon.png" %}"/>
-        <p class="h1">liBestOf</p>
-    </a>
-    <br>
-    <a href="{% block add_href %}{% endblock %}" class="title">
-        <p class="h3">{% block add_href_text %}{% endblock %}</p>
-    </a>
-</header>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-5 sticky-top">
+    <div class="pt-2">
+        <a href="/" class="title">
+            <img src="{% static "base/img/icons/icon.png" %}"/>
+            <p class="h2 main">liBestOf</p>
+        </a>
+        <a href="{% block add_href %}{% endblock %}" class="title">
+            <p class="h5 mr-3">{% block add_href_text %}{% endblock %}</p>
+        </a>
+    </div>
+
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+            aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <{% block navbar-collapse-override %}div{% endblock %} class="collapse navbar-collapse" id="navbarColor02">
+        {#        <ul class="navbar-nav mr-auto">#}
+        {#            <li class="nav-item active">#}
+        {#                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>#}
+        {#            </li>#}
+        {#            <li class="nav-item">#}
+        {#                <a class="nav-link" href="#">Features</a>#}
+        {#            </li>#}
+        {#            <li class="nav-item">#}
+        {#                <a class="nav-link" href="#">Pricing</a>#}
+        {#            </li>#}
+        {#            <li class="nav-item">#}
+        {#                <a class="nav-link" href="#">About</a>#}
+        {#            </li>#}
+        {#        </ul>#}
+        {#        <form class="form-inline">#}
+        {#            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">#}
+        {#            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>#}
+        {#        </form>#}
+
+    </div>
+    {% block navbar-items %}{% endblock %}
+</nav>
 
 {% block content %}
 
@@ -54,7 +85,7 @@
         <div class="ml-2" style="display: inline-block !important;">
             {% for social_link in social_links %}
                 <a href="{{ social_link.link }}"><img src="{{ social_link.image.url }}" class="social-button ml-1 mr-1"
-                                alt="{{ social_link.name }}"></a>
+                                                      alt="{{ social_link.name }}"></a>
             {% endfor %}
         </div>
     </div>
