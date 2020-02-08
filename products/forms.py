@@ -4,7 +4,7 @@ from .models import Product, Subcategory
 
 
 class ProductSearchForm(forms.ModelForm):
-    query = forms.CharField(required=False, label='', widget=forms.TextInput(
+    query = forms.CharField(label='', widget=forms.TextInput(
         attrs={'class': 'form-control mr-sm-2',
                'placeholder': 'Search',
                'aria-label': 'Search',

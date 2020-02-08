@@ -22,31 +22,35 @@
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{ category.name }}
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <div class="dropdown-menu animation slideDownIn bg-info" aria-labelledby="navbarDropdownMenuLink">
                     {% for subcategory in subcategories %}
                         {% if subcategory.parent_category == category %}
-                            <a class="dropdown-item" href="{% url 'products:products_list' username subcategory.id %}{{ request_text }}">{{ subcategory.name }}</a>
+                            <!--@formatter:off-->
+                            <a class="dropdown-item text-light bg-info" href="{% url 'products:products_list' username subcategory.id %}{{ request_text }}">{{ subcategory.name }}</a>
+                            <!--@formatter:on-->
                         {% endif %}
                     {% endfor %}
                 </div>
             </li>
         {% endfor %}
     </ul>
-    <form action="{% url 'products:products_list' username current_category %}" method="get" class="form-inline input-group">
+
+    <form action="{% url 'products:products_list' username current_category %}" method="get"
+          class="form-inline input-group mt-2">
         {{ product_search_form }}
         <button class="btn btn-outline-light ml-2" type="submit">&#x1F50D</button>
     </form>
 {% endblock %}
 
 {% block content %}
-    <article class="text-center">
+    <main class="text-center mt-5">
         {% if products %}
             {% for product in products %}
                 <div class="product">
                     <div class="card">
                         <img src="{{ product.image.url }}" alt="{{ product.name }}"/>
                         <input type="text" class="form-control" readonly="readonly" value="{{ product.name }}"/>
-                        <a class="btn btn-primary" href="{% url "products:product_detail" product.pk %}"
+                        <a class="btn btn-info" href="{% url "products:product_detail" product.pk %}"
                            role="button">More</a>
                     </div>
                 </div>
@@ -107,5 +111,5 @@
                 No products found.
             </div>
         {% endif %}
-    </article>
+    </main>
 {% endblock %}

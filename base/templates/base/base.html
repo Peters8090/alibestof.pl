@@ -33,8 +33,7 @@
 </head>
 
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-5 sticky-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class="pt-2">
         <a href="/" class="title">
             <img src="{% static "base/img/icons/icon.png" %}"/>
@@ -56,16 +55,15 @@
     </div>
 </nav>
 
-{% block content %}
+{% block content %}{% endblock %}
 
-{% endblock %}
-<footer class="card text-center">
+<footer class="card text-center bg-dark text-light">
     <div class="card-body">
         <h5 class="card-title footer-text">&copy AliBestOf {% now "Y" %} | All Rights
             Reserved! | Find us on:</h5>
         <div class="ml-2" style="display: inline-block !important;">
             {% for social_link in social_links %}
-                <a href="{{ social_link.link }}"><img src="{{ social_link.image.url }}" class="social-button ml-1 mr-1"
+                <a href="{{ social_link.link }}"><img src="{{ social_link.image.url }}" class="social-link ml-1 mr-1"
                                                       alt="{{ social_link.name }}"></a>
             {% endfor %}
         </div>

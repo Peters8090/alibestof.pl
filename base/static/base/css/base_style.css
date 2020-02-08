@@ -1,3 +1,5 @@
+/*region General*/
+
 @font-face {
     font-family: 'AvenirLTS';
     src: url("../fonts/AvenirLTStd-Book.otf") format("opentype");
@@ -10,6 +12,10 @@ p {
 a {
     text-decoration: none !important;
 }
+
+/*endregion*/
+
+/*region Brand*/
 
 .title {
     font-family: 'AvenirLTS', serif;
@@ -39,12 +45,21 @@ a {
         display: block;
     }
 }
+/*endregion*/
+
+/*region Footer*/
 
 .footer-text {
     display: inline-block !important;
 }
 
-.social-button {
+.social-link {
     width: 2rem;
     height: 2rem;
 }
+
+.social-link:hover {
+    opacity: 0.7;
+}
+
+/*endregion*/

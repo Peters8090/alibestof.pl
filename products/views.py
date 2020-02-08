@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, reverse, redirect
 from django.core.paginator import Paginator
 from django.views import generic
-from django.http import Http404, HttpResponse
+from django.http import Http404
 from django.contrib.auth.models import User
 
 from try_parse.utils import ParseUtils
@@ -19,9 +19,11 @@ def home_page(request):
                 kwargs={'username': Configuration.get_configuration().home_page_user.username}))
 
 
-def products_list(request, username, page=1, category=None):
+def products_list(request, username, page=1, category=0):
     if not User.objects.filter(username=username):
         raise Http404('No such User found')
+
+    request_text = request.build_absolute_uri().split('/')[-1].translate(str.maketrans('', '', '0123456789'))
 
     # Find published products of a user
     products = Product.objects.filter(user__username__exact=username,
@@ -33,10 +35,12 @@ def products_list(request, username, page=1, category=None):
         products = products.filter(Q(pk=ParseUtils.try_parse_int(query)[1]) |
                                    Q(name__icontains=query) |
                                    Q(description__icontains=query))
-
     # Product Filtering - Category
-    if category is not None and category is not "":
+    if int(category) is not 0:
         products = products.filter(category_id__exact=ParseUtils.try_parse_int(category)[1])
+    elif 'category' in request.resolver_match.kwargs:
+        return HttpResponseRedirect(
+            reverse('products:products_list', kwargs={'username': username, 'page': page, }) + request_text)
 
     products_paginator = Paginator(products, Configuration.get_configuration().products_per_page)
     products_paginator_current_page = Paginator(products,
@@ -58,18 +62,19 @@ def products_list(request, username, page=1, category=None):
         'categories': categories,
         'subcategories': subcategories,
         'query': query,
-        'request_text': request.build_absolute_uri().split('/')[-1].translate(str.maketrans('', '', '0123456789')),
+        'request_text': request_text,
     }
     return render(request, 'products/products_list.html', context)
 
 
-def products_list_pagination_custom_page_redirect(request, username, category=None):
+def products_list_pagination_custom_page_redirect(request, username, category=0):
     try:
         page = int(request.GET.get('page'))
     except ValueError:
         page = 1
 
-    return redirect(reverse('products:products_list', kwargs={'username': username, 'page': page, 'category': category,}) + request.GET.get(
+    return redirect(reverse('products:products_list',
+                            kwargs={'username': username, 'page': page, 'category': category, }) + request.GET.get(
         'request_text'))
 
 

@@ -1,9 +1,15 @@
+/*#region Search*/
+
 @media only screen and (min-width: 700px) {
     .input-group {
         display: block !important;
         width: auto !important;
     }
 }
+
+/*endregion*/
+
+/*#region Product*/
 
 .product {
     display: inline-block;
@@ -16,6 +22,10 @@
     object-fit: cover;
     margin: 0 auto;
 }
+
+/*#endregion*/
+
+/*#region Pagination*/
 
 .pagination-number-input {
     position: relative;
@@ -30,12 +40,87 @@
     text-align: center;
 }
 
+.pagination-number-input::-webkit-inner-spin-button,
+.pagination-number-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
 .pagination-number-input::placeholder {
     color: #007bff;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+/*endregion*/
+
+/*#region Category Dropdown*/
+.dropdown-toggle {
+    outline: none !important;
 }
+
+.animation {
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@-webkit-keyframes slideDownIn {
+    0% {
+        -webkit-transform: translateY(-15px);
+    }
+    100% {
+        -webkit-transform: translateY(0);
+    }
+    0% {
+        -webkit-transform: translateY(-20);
+    }
+}
+
+@keyframes slideDownIn {
+    0% {
+        transform: translateY(-15px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+    0% {
+        transform: translateY(-15px);
+    }
+}
+
+.slideDownIn {
+    -webkit-animation-name: slideDownIn;
+    animation-name: slideDownIn;
+}
+
+@-webkit-keyframes slideUpIn {
+    0% {
+        -webkit-transform: translateY(15px);
+    }
+    100% {
+        -webkit-transform: translateY(0);
+    }
+    0% {
+        -webkit-transform: translateY(15px);
+    }
+}
+
+@keyframes slideUpIn {
+    0% {
+        transform: translateY(15px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+    0% {
+        transform: translateY(15px);
+    }
+}
+
+.slideUpIn {
+    -webkit-animation-name: slideUpIn;
+    animation-name: slideUpIn;
+}
+
+/*#endregion*/
