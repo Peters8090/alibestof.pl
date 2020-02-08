@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, reverse, redirect
 from django.core.paginator import Paginator
 from django.views import generic
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.contrib.auth.models import User
 
 from try_parse.utils import ParseUtils
@@ -57,8 +57,8 @@ def products_list(request, username, page=1):
         'product_search_form': product_search_form,
         'categories': categories,
         'subcategories': subcategories,
-        'request_text': request.build_absolute_uri().split('/')[-1].translate(
-            str.maketrans('', '', '0123456789')),
+        'query': query,
+        'request_text': request.build_absolute_uri().split('/')[-1].translate(str.maketrans('', '', '0123456789')),
     }
     return render(request, 'products/products_list.html', context)
 
@@ -68,6 +68,7 @@ def products_list_pagination_custom_page_redirect(request, username):
         page = int(request.GET.get('page'))
     except ValueError:
         page = 1
+    print(request.GET.get('query'))
 
     return redirect(reverse('products:products_list', kwargs={'username': username, 'page': page, }) + request.GET.get(
         'request_text'))
