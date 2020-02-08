@@ -19,7 +19,7 @@ def home_page(request):
                 kwargs={'username': Configuration.get_configuration().home_page_user.username}))
 
 
-def products_list(request, username, page=1):
+def products_list(request, username, page=1, category=None):
     if not User.objects.filter(username=username):
         raise Http404('No such User found')
 
@@ -35,7 +35,6 @@ def products_list(request, username, page=1):
                                    Q(description__icontains=query))
 
     # Product Filtering - Category
-    category = request.GET.get('category')
     if category is not None and category is not "":
         products = products.filter(category_id__exact=ParseUtils.try_parse_int(category)[1])
 
@@ -55,6 +54,7 @@ def products_list(request, username, page=1):
         'products_paginator': products_paginator,
         'products_paginator_current_page': products_paginator_current_page,
         'product_search_form': product_search_form,
+        'current_category': category,
         'categories': categories,
         'subcategories': subcategories,
         'query': query,
@@ -63,14 +63,13 @@ def products_list(request, username, page=1):
     return render(request, 'products/products_list.html', context)
 
 
-def products_list_pagination_custom_page_redirect(request, username):
+def products_list_pagination_custom_page_redirect(request, username, category=None):
     try:
         page = int(request.GET.get('page'))
     except ValueError:
         page = 1
-    print(request.GET.get('query'))
 
-    return redirect(reverse('products:products_list', kwargs={'username': username, 'page': page, }) + request.GET.get(
+    return redirect(reverse('products:products_list', kwargs={'username': username, 'page': page, 'category': category,}) + request.GET.get(
         'request_text'))
 
 
