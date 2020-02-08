@@ -1,7 +1,7 @@
-from django.db import models
+from PIL import Image
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-
+from django.db import models
 from ordered_model.models import OrderedModel
 
 from base.models import Configuration
@@ -86,3 +86,6 @@ class Product(models.Model):
                             published=False)
                 p.save()
         super(Product, self).save(*args, *kwargs)
+
+        # Image compression
+        Image.open(self.image.path).save(self.image.path, quality=50, optimize=True)
