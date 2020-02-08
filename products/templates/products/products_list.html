@@ -26,7 +26,7 @@
                     {% for subcategory in subcategories %}
                         {% if subcategory.parent_category == category %}
                             <!--@formatter:off-->
-                            <a class="dropdown-item text-light bg-info" href="{% url 'products:products_list' username subcategory.id %}{{ request_text }}">{{ subcategory.name }}</a>
+                                <a class="dropdown-item text-light bg-info" href="{% url 'products:products_list' username subcategory.id %}{{ request_text }}">{{ subcategory.name }}</a>
                             <!--@formatter:on-->
                         {% endif %}
                     {% endfor %}
@@ -60,7 +60,9 @@
                 <ul class="pagination justify-content-center">
                     {% if products_paginator_current_page.has_previous %}
                         <li class="page-item">
-                            <!--@formatter:off--><a class="page-link" href="{% url 'products:products_list' username current_category products_paginator_current_page.previous_page_number %}{{ request_text }}"><</a><!--@formatter:on-->
+                            <!--@formatter:off-->
+                                <a class="page-link" href="{% url 'products:products_list' username current_category products_paginator_current_page.previous_page_number %}{{ request_text }}"><</a>
+                            <!--@formatter:on-->
                         </li>
                     {% else %}
                         <li class="page-item disabled">
@@ -73,7 +75,8 @@
 
                         {% if i == 1 or i == products_paginator.count or i == products_paginator_current_page.previous_page_number or i == products_paginator_current_page.next_page_number or i == products_paginator_current_page.number %}
                             {% if i == products_paginator.count and products_paginator.count > 1 %}
-                                <form action="{% url 'products:products_list_pagination_custom_page_redirect' username current_category %}" method="get">
+                                <form action="{% url 'products:products_list_pagination_custom_page_redirect' username current_category %}"
+                                      method="get">
                                     <input type="hidden" name="request_text" value="{{ request_text }}">
                                     <input type="number" name="page" class="pagination-number-input"
                                            placeholder="..." min="1" max="{{ products_paginator.count }}"
@@ -87,7 +90,9 @@
                                 </li>
                             {% else %}
                                 <li class="page-item">
-                                    <!--@formatter:off--><a class="page-link" href="{% url 'products:products_list' username current_category i %}{{ request_text }}">{{ i }}</a><!--@formatter:on-->
+                                    <!--@formatter:off-->
+                                        <a class="page-link" href="{% url 'products:products_list' username current_category i %}{{ request_text }}">{{ i }}</a>
+                                    <!--@formatter:on-->
                                 </li>
                             {% endif %}
                         {% endif %}
@@ -96,7 +101,9 @@
 
                     {% if products_paginator_current_page.has_next %}
                         <li class="page-item">
-                        <!--@formatter:off--><a class="page-link" href="{% url 'products:products_list' username current_category products_paginator_current_page.next_page_number %}{{ request_text }}">></a><!--@formatter:on-->
+                            <!--@formatter:off-->
+                                <a class="page-link" href="{% url 'products:products_list' username current_category products_paginator_current_page.next_page_number %}{{ request_text }}">></a>
+                            <!--@formatter:on-->
                         </li>
                     {% else %}
                         <li class="page-item disabled">

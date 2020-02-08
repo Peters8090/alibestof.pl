@@ -9,8 +9,8 @@ from .models import Product, Category, Subcategory
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'id', 'user', 'author', 'date_modified', 'date_created', 'published')
-    list_filter = ['user', 'author', 'date_created', 'date_modified', 'published']
+    list_display = ('name', 'id', 'user', 'author', 'category', 'date_modified', 'date_created', 'published')
+    list_filter = ['user', 'author', 'category', 'date_modified', 'date_created', 'published']
     search_fields = ['name', 'description']
     actions = ['publish_products', 'unpublish_products']
 
@@ -45,13 +45,13 @@ class ProductAdmin(admin.ModelAdmin):
 class SubcategoryAdmin(OrderedTabularInline):
     model = Subcategory
     extra = 0
-    fields = ('name', 'move_up_down_links',)
+    fields = ('name', 'move_up_down_links')
     readonly_fields = ('move_up_down_links',)
     sortable_by = []
 
 
 @admin.register(Category)
 class CategoryAdmin(OrderedInlineModelAdminMixin, OrderedModelAdmin):
-    list_display = ('name', 'move_up_down_links')
+    list_display = ('name', 'id', 'move_up_down_links')
     inlines = [SubcategoryAdmin]
     sortable_by = []
