@@ -14,13 +14,12 @@
     {% url 'products:products_list' product.user.username %}
 {% endblock %}
 
-
-{% if request.user == product.user or request.user.is_superuser %}
-    {% block navbar-items %}
+{% block navbar-items %}
+    {% if request.user == product.user or request.user.is_superuser %}
         <a href="{% url 'admin:products_product_change' product.pk %}" class="btn btn-info btn-lg active ml-auto"
            role="button">Edit product</a>
-    {% endblock %}
-{% endif %}
+    {% endif %}
+{% endblock %}
 
 {% block content %}
     <main class="card text-center m-2">
