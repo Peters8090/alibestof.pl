@@ -22,11 +22,11 @@
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{ category.name }}
                 </a>
-                <div class="dropdown-menu animation slideDownIn bg-info" aria-labelledby="navbarDropdownMenuLink">
+                <div class="dropdown-menu animation slideDownIn bg-secondary" aria-labelledby="navbarDropdownMenuLink">
                     {% for subcategory in subcategories %}
                         {% if subcategory.parent_category == category %}
                             <!--@formatter:off-->
-                                <a class="dropdown-item text-light bg-info" href="{% url 'products:products_list' username subcategory.id %}{{ request_text }}">{{ subcategory.name }}</a>
+                                <a class="dropdown-item text-light bg-secondary" href="{% url 'products:products_list' username subcategory.id %}{{ request_text }}">{{ subcategory.name }}</a>
                             <!--@formatter:on-->
                         {% endif %}
                     {% endfor %}

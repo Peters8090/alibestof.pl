@@ -1,16 +1,16 @@
+from django.contrib.auth.models import User
+from django.core.paginator import Paginator
 from django.db.models import Q
+from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, reverse, redirect
-from django.core.paginator import Paginator
 from django.views import generic
-from django.http import Http404
-from django.contrib.auth.models import User
-
 from try_parse.utils import ParseUtils
 
-from .models import Product, Category, Subcategory
 from base.models import Configuration
+from categories.models import Category, Subcategory
 from .forms import ProductSearchForm
+from .models import Product
 
 
 def home_page(request):

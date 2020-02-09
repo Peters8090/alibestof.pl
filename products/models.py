@@ -2,9 +2,9 @@ from PIL import Image
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
-from ordered_model.models import OrderedModel
 
 from base.models import Configuration
+from categories.models import Subcategory
 
 
 def product_link_validator(value):
@@ -19,31 +19,6 @@ def photos_link_validator(value):
         raise ValidationError(
             'You must include ' + Configuration.get_configuration().photos_link_validator.replace('\r\n',
                                                                                                   ' or ') + ' in your photos link')
-
-
-class Category(OrderedModel):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
-
-    class Meta(OrderedModel.Meta):
-        verbose_name_plural = 'Categories'
-        ordering = ['order']
-
-
-class Subcategory(OrderedModel):
-    name = models.CharField(max_length=100)
-    parent_category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='parent_category')
-
-    order_with_respect_to = 'parent_category'
-
-    def __str__(self):
-        return f'({self.parent_category}) {self.name}'
-
-    class Meta(OrderedModel.Meta):
-        verbose_name_plural = 'Subcategories'
-        ordering = ['order']
 
 
 class Product(models.Model):
