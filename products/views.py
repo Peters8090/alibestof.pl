@@ -3,7 +3,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import Http404
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, reverse, redirect
+from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.views import generic
 from try_parse.utils import ParseUtils
 
@@ -20,8 +20,8 @@ def home_page(request):
 
 
 def products_list(request, username, page=1, category=0):
-    if not User.objects.filter(username=username):
-        raise Http404('No such User found')
+    # 404 if user doesn't exist
+    get_object_or_404(User, username=username)
 
     request_text = request.build_absolute_uri().split('/')[-1].translate(str.maketrans('', '', '0123456789'))
 
@@ -35,10 +35,11 @@ def products_list(request, username, page=1, category=0):
         products = products.filter(Q(pk=ParseUtils.try_parse_int(query)[1]) |
                                    Q(name__icontains=query) |
                                    Q(description__icontains=query))
+
     # Product Filtering - Category
     if int(category) is not 0:
         products = products.filter(category_id__exact=ParseUtils.try_parse_int(category)[1])
-    elif 'category' in request.resolver_match.kwargs:
+    elif 'category' in request.resolver_match.kwargs:  # clean the url, but prevent endless redirects
         return HttpResponseRedirect(
             reverse('products:products_list', kwargs={'username': username, 'page': page, }) + request_text)
 

@@ -11,7 +11,7 @@
 
 {% block add_href_text %} - {{ username }}'s profile{% endblock %}
 {% block add_href %}
-    {% url 'products:products_list' username %}
+    {% url 'products:products_list' username=username %}
 {% endblock %}
 
 {% block navbar-items %}
@@ -26,7 +26,7 @@
                     {% for subcategory in subcategories %}
                         {% if subcategory.parent_category == category %}
                             <!--@formatter:off-->
-                                <a class="dropdown-item text-light bg-secondary" href="{% url 'products:products_list' username subcategory.id %}{{ request_text }}">{{ subcategory.name }}</a>
+                                <a class="dropdown-item text-light bg-secondary" href="{% url 'products:products_list' username=username category=subcategory.id %}{{ request_text }}">{{ subcategory.name }}</a>
                             <!--@formatter:on-->
                         {% endif %}
                     {% endfor %}
@@ -35,7 +35,7 @@
         {% endfor %}
     </ul>
 
-    <form action="{% url 'products:products_list' username current_category %}" method="get"
+    <form action="{% url 'products:products_list' username=username category=current_category %}" method="get"
           class="form-inline input-group mt-2">
         {{ product_search_form }}
         <button class="btn btn-outline-light ml-2" type="submit">&#x1F50D</button>
@@ -61,7 +61,7 @@
                     {% if products_paginator_current_page.has_previous %}
                         <li class="page-item">
                             <!--@formatter:off-->
-                                <a class="page-link" href="{% url 'products:products_list' username current_category products_paginator_current_page.previous_page_number %}{{ request_text }}"><</a>
+                                <a class="page-link" href="{% url 'products:products_list' username=username category=current_category page=products_paginator_current_page.previous_page_number %}{{ request_text }}"><</a>
                             <!--@formatter:on-->
                         </li>
                     {% else %}
@@ -71,11 +71,11 @@
                         </li>
                     {% endif %}
 
-                    {% for i in products_paginator.page_range %}
+                    {% for page in products_paginator.page_range %}
 
-                        {% if i == 1 or i == products_paginator.count or i == products_paginator_current_page.previous_page_number or i == products_paginator_current_page.next_page_number or i == products_paginator_current_page.number %}
-                            {% if i == products_paginator.count and products_paginator.count > 1 %}
-                                <form action="{% url 'products:products_list_pagination_custom_page_redirect' username current_category %}"
+                        {% if page == 1 or page == products_paginator.count or page == products_paginator_current_page.previous_page_number or page == products_paginator_current_page.next_page_number or page == products_paginator_current_page.number %}
+                            {% if page == products_paginator.count and products_paginator.count > 1 %}
+                                <form action="{% url 'products:products_list_pagination_custom_page_redirect' username=username category=current_category %}"
                                       method="get">
                                     <input type="hidden" name="request_text" value="{{ request_text }}">
                                     <input type="number" name="page" class="pagination-number-input"
@@ -84,14 +84,14 @@
                                 </form>
                             {% endif %}
 
-                            {% if i == products_paginator_current_page.number %}
+                            {% if page == products_paginator_current_page.number %}
                                 <li class="page-item active">
-                                    <a class="page-link" href="">{{ i }}</a>
+                                    <a class="page-link" href="">{{ page }}</a>
                                 </li>
                             {% else %}
                                 <li class="page-item">
                                     <!--@formatter:off-->
-                                        <a class="page-link" href="{% url 'products:products_list' username current_category i %}{{ request_text }}">{{ i }}</a>
+                                        <a class="page-link" href="{% url 'products:products_list' username=username category=current_category page=page %}{{ request_text }}">{{ page }}</a>
                                     <!--@formatter:on-->
                                 </li>
                             {% endif %}
@@ -102,7 +102,7 @@
                     {% if products_paginator_current_page.has_next %}
                         <li class="page-item">
                             <!--@formatter:off-->
-                                <a class="page-link" href="{% url 'products:products_list' username current_category products_paginator_current_page.next_page_number %}{{ request_text }}">></a>
+                                <a class="page-link" href="{% url 'products:products_list' username=username category=current_category page=products_paginator_current_page.next_page_number %}{{ request_text }}">></a>
                             <!--@formatter:on-->
                         </li>
                     {% else %}

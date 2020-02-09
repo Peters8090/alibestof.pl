@@ -85,11 +85,11 @@ WSGI_APPLICATION = 'alibestof_pl.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'm1024_alibestof',
-        'USER': 'm1024_Peters8090',
-        'PASSWORD': IMPORTANT_DATA[1],
-        'HOST': 'mysql43.mydevil.net',
-        'PORT': '',
+        'NAME': IMPORTANT_DATA[1],
+        'USER': IMPORTANT_DATA[2],
+        'PASSWORD': IMPORTANT_DATA[3],
+        'HOST': IMPORTANT_DATA[4],
+        'PORT': IMPORTANT_DATA[5],
 
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
