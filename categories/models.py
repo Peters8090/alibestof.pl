@@ -25,4 +25,4 @@ class Subcategory(OrderedModel):
 
     class Meta(OrderedModel.Meta):
         verbose_name_plural = 'Subcategories'
-        ordering = ['order']
+        ordering = ['parent_category', 'order']

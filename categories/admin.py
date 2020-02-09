@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from ordered_model.admin import OrderedModelAdmin, OrderedTabularInline, OrderedInlineModelAdminMixin
 
 from .models import Subcategory, Category
