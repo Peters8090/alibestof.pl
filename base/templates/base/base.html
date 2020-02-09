@@ -60,13 +60,17 @@
 <footer class="card text-center bg-dark text-light">
     <div class="card-body">
         <h5 class="card-title footer-text">&copy AliBestOf {% now "Y" %} | All Rights
-            Reserved! | Find us on:</h5>
-        <div class="ml-2" style="display: inline-block !important;">
-            {% for social_link in social_links %}
-                <a href="{{ social_link.link }}"><img src="{{ social_link.image.url }}" class="social-link ml-1 mr-1"
-                                                      alt="{{ social_link.name }}"></a>
-            {% endfor %}
-        </div>
+            Reserved!
+            {% if social_links %}
+                | Find us on:</h5>
+                <div class="ml-2" style="display: inline-block !important;">
+                    {% for social_link in social_links %}
+                        <a href="{{ social_link.link }}"><img src="{{ social_link.image.url }}"
+                                                              class="social-link ml-1 mr-1"
+                                                              alt="{{ social_link.name }}"></a>
+                    {% endfor %}
+                </div>
+            {% endif %}
     </div>
 </footer>
 </body>
