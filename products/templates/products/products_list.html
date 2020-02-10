@@ -16,11 +16,6 @@
 
 {% block navbar-items %}
     <ul class="navbar-nav mr-auto">
-        <a class="nav-link dropdown-toggle"
-           href="{% url 'products:products_list' username=username category=None %}{{ request_text }}">
-            Uncategorized
-        </a>
-
         {% for category in categories %}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -38,6 +33,11 @@
                 </div>
             </li>
         {% endfor %}
+
+        <a class="nav-link"
+           href="{% url 'products:products_list' username=username category=None %}{{ request_text }}">
+            Uncategorized
+        </a>
     </ul>
 
     <form action="{% url 'products:products_list' username=username category=current_category %}" method="get"

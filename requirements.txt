@@ -4,4 +4,3 @@ mysqlclient
 Pillow
 django-ordered-model
 try-parse
-django-grappelli

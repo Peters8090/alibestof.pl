@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Product, Subcategory
+from .models import Product
 
 
 class ProductSearchForm(forms.ModelForm):
@@ -13,3 +13,13 @@ class ProductSearchForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = []
+
+
+class ProductAdminListEditForm(forms.ModelForm):
+    description = forms.CharField(max_length=5000)
+    product_link = forms.CharField(max_length=5000)
+    photos_link = forms.CharField(max_length=5000)
+
+    class Meta:
+        model = Product
+        fields = {'description', 'product_link', 'photos_link'}

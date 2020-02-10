@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.core.exceptions import ObjectDoesNotExist
 
+from .forms import ProductAdminListEditForm
 from .models import Product
 
 
@@ -13,6 +14,10 @@ class ProductAdmin(admin.ModelAdmin):
     list_editable = ['description', 'product_link', 'photos_link', ]
     search_fields = ['name', 'description']
     actions = ['publish_products', 'unpublish_products']
+
+    def get_changelist_form(self, request, **kwargs):
+        kwargs.setdefault('form', ProductAdminListEditForm)
+        return super(ProductAdmin, self).get_changelist_form(request, **kwargs)
 
     def publish_products(self, request, queryset):
         p = queryset.update(published=True)
