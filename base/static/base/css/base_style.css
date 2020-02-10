@@ -5,10 +5,6 @@
     src: url("../fonts/AvenirLTStd-Book.otf") format("opentype");
 }
 
-p {
-    white-space: pre-wrap !important;
-}
-
 a {
     text-decoration: none !important;
 }
