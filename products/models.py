@@ -25,7 +25,7 @@ class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user', editable=False)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='author', editable=False)
     name = models.CharField(max_length=200)
-    category = models.ForeignKey(Subcategory, related_name='category', on_delete=models.CASCADE)
+    category = models.ForeignKey(Subcategory, related_name='category', blank=True, null=True, on_delete=models.SET_NULL)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='products/product')
     product_link = models.URLField(max_length=1000, validators=[product_link_validator])
@@ -41,6 +41,7 @@ class Product(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
+
         # On create
         if not self.pk:
             # If there is no author, assign one
@@ -49,16 +50,19 @@ class Product(models.Model):
 
             # Auto product duplication
             if self.published and not self.user.is_superuser:
-                p = Product(user=Configuration.get_configuration().product_duplication_superuser,
-                            author=self.author,
-                            name=self.name,
-                            description=self.description,
-                            image=self.image,
-                            product_link=self.product_link,
-                            photos_link=self.photos_link,
-                            date_created=self.date_created,
-                            date_modified=self.date_modified,
-                            published=False)
+                p = Product(
+                    user=Configuration.get_configuration().product_duplication_superuser,
+                    author=self.author,
+                    name=self.name,
+                    category=self.category,
+                    description=self.description,
+                    image=self.image,
+                    product_link=self.product_link,
+                    photos_link=self.photos_link,
+                    date_created=self.date_created,
+                    date_modified=self.date_modified,
+                    published=False
+                )
                 p.save()
         super(Product, self).save(*args, *kwargs)
 

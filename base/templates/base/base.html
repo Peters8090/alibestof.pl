@@ -58,11 +58,11 @@
 {% block content %}{% endblock %}
 
 <footer class="card text-center bg-dark text-light">
-    <div class="card-body">
-        <h5 class="card-title footer-text">&copy AliBestOf {% now "Y" %} | All Rights
+    <div class="card-body p-2">
+        <h6 class="card-title footer-text">&copy AliBestOf {% now "Y" %} | All Rights
             Reserved!
             {% if social_links %}
-                | Find us on:</h5>
+                | Find us on:</h6>
                 <div class="ml-2" style="display: inline-block !important;">
                     {% for social_link in social_links %}
                         <a href="{{ social_link.link }}"><img src="{{ social_link.image.url }}"
