@@ -9,7 +9,8 @@
     Product ID {{ product.id }}
 {% endblock %}
 
-{% block add_href_text %} - {{ product.user.username }}'s profile{% endblock %}
+{% load products_tags %}
+{% block add_href_text %}{% show_profile_info username %}{% endblock %}
 {% block add_href %}
     {% url 'products:products_list' product.user.username %}
 {% endblock %}
