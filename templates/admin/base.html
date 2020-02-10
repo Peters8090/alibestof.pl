@@ -1,0 +1,5 @@
+{% extends "admin/base.html" %}
+{% block userlinks %}
+    {% url 'products:products_list' username=user.username as site_url %}
+    {{ block.super }}
+{% endblock %}

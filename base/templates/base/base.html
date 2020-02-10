@@ -34,15 +34,11 @@
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-    <div class="pt-2">
-        <a href="/" class="title">
-            <img src="{% static "base/img/icons/icon.png" %}"/>
-            <p class="h2 main">liBestOf</p>
-        </a>
-        <a href="{% block add_href %}{% endblock %}" class="title">
-            <p class="h5 mr-3">{% block add_href_text %}{% endblock %}</p>
-        </a>
-    </div>
+    <a href="{% block add_href %}{% endblock %}" class="brand pt-2">
+        <img src="{% static 'base/img/icons/icon.png' %}"/>
+        <p class="h2">liBestOf</p>
+        <p class="subtitle h5 mr-3">{% block add_href_text %}{% endblock %}</p>
+    </a>
 
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"

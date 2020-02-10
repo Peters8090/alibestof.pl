@@ -32,8 +32,6 @@ ALLOWED_HOSTS = ['localhost', 'peters8090.usermd.net']
 # Application definition
 
 INSTALLED_APPS = [
-    'grappelli',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -64,7 +62,7 @@ ROOT_URLCONF = 'alibestof_pl.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
