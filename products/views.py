@@ -37,11 +37,17 @@ def products_list(request, username, page=1, category=0):
                                    Q(description__icontains=query))
 
     # Product Filtering - Category
-    if int(category) is not 0:
+    if ParseUtils.try_parse_int(category)[1] == 0:
+        if 'category' in request.resolver_match.kwargs:
+            # No category selected, so clean the url and prevent endless redirects
+            return HttpResponseRedirect(
+                reverse('products:products_list', kwargs={'username': username, 'page': page, }) + request_text)
+    elif category == 'None':
+        # Uncategorized category selected
+        products = products.filter(category__exact=None)
+    else:
+        # Some category has been selected
         products = products.filter(category_id__exact=ParseUtils.try_parse_int(category)[1])
-    elif 'category' in request.resolver_match.kwargs:  # clean the url, but prevent endless redirects
-        return HttpResponseRedirect(
-            reverse('products:products_list', kwargs={'username': username, 'page': page, }) + request_text)
 
     products_paginator = Paginator(products, Configuration.get_configuration().products_per_page)
     products_paginator_current_page = Paginator(products,
