@@ -32,6 +32,8 @@ ALLOWED_HOSTS = ['localhost', 'peters8090.usermd.net']
 # Application definition
 
 INSTALLED_APPS = [
+    'grappelli',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

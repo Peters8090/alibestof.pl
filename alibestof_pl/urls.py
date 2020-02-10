@@ -23,5 +23,7 @@ import products.views
 urlpatterns = [
     path('', products.views.home_page),
     path('products/', include('products.urls')),
+
+    path('grappelli/', include('grappelli.urls')), # grappelli URLS
     path('admin/', admin.site.urls, name='admin'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
