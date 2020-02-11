@@ -16,6 +16,7 @@ class ProductSearchForm(forms.ModelForm):
 
 
 class ProductAdminListEditForm(forms.ModelForm):
+    # Overridden Product list edit fields
     description = forms.CharField(max_length=5000, required=False, widget=forms.Textarea(attrs={'rows': 1, 'cols': 20}))
     product_link = forms.CharField(max_length=5000)
     photos_link = forms.CharField(max_length=5000)

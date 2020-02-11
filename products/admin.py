@@ -11,7 +11,7 @@ class ProductAdmin(admin.ModelAdmin):
         'name', 'id', 'user', 'author', 'category', 'description', 'product_link', 'photos_link', 'date_modified',
         'date_created', 'published')
     list_filter = ['user', 'author', 'category', 'date_modified', 'date_created', 'published']
-    list_editable = ['description', 'product_link', 'photos_link', ]
+    list_editable = ['category', 'description', 'product_link', 'photos_link', ]
     search_fields = ['name', 'description']
     actions = ['publish_products', 'unpublish_products']
 
