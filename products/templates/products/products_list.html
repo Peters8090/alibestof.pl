@@ -78,13 +78,13 @@
 
                     {% for page in products_paginator.page_range %}
 
-                        {% if page == 1 or page == products_paginator.count or page == products_paginator_current_page.previous_page_number or page == products_paginator_current_page.next_page_number or page == products_paginator_current_page.number %}
-                            {% if page == products_paginator.count and products_paginator.count > 1 %}
+                        {% if page == 1 or page == products_paginator.num_pages or page == products_paginator_current_page.previous_page_number or page == products_paginator_current_page.next_page_number or page == products_paginator_current_page.number %}
+                            {% if page == products_paginator.num_pages and products_paginator.num_pages > 1 %}
                                 <form action="{% url 'products:products_list_pagination_custom_page_redirect' username=username category=current_category %}"
                                       method="get">
                                     <input type="hidden" name="request_text" value="{{ request_text }}">
                                     <input type="number" name="page" class="pagination-number-input"
-                                           placeholder="..." min="1" max="{{ products_paginator.count }}"
+                                           placeholder="..." min="1" max="{{ products_paginator.num_pages }}"
                                            onKeyDown="if(this.value.length===2 && event.keyCode>47 && event.keyCode < 58) return false;">
                                 </form>
                             {% endif %}
