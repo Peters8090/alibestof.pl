@@ -36,6 +36,8 @@ class Product(models.Model):
 
     class Meta:
         ordering = ['-date_modified']
+        permissions = [('can_interact_with_all_products', 'Can interact with all products'),
+                       ('can_interact_with_his_own_products', 'Can interact with his own products')]
 
     def __str__(self):
         return self.name

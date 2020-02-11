@@ -33,10 +33,12 @@ class ProductAdmin(admin.ModelAdmin):
     # display only products the user owns
     def get_queryset(self, request):
         super().get_queryset(request)
-        if request.user.is_superuser:
+        if request.user.has_perm('products.can_interact_with_all_products'):
             return Product.objects
-        else:
+        elif request.user.has_perm('products.can_interact_with_his_own_products'):
             return Product.objects.filter(user_id=request.user.id)
+        else:
+            return Product.objects.none()
 
     # auto assign user to the one creating the product
     def save_model(self, request, obj, form, change):
