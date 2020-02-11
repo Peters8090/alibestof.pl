@@ -56,9 +56,6 @@ def products_list(request, username, page=1, category=0):
 
     product_search_form = ProductSearchForm(request.GET or None)
 
-    categories = Category.objects.get_queryset()
-    subcategories = Subcategory.objects.get_queryset()
-
     context = {
         'username': username,
         'products': products,
@@ -66,8 +63,8 @@ def products_list(request, username, page=1, category=0):
         'products_paginator_current_page': products_paginator_current_page,
         'product_search_form': product_search_form,
         'current_category': category,
-        'categories': categories,
-        'subcategories': subcategories,
+        'categories': Category.objects.get_queryset(),
+        'subcategories': Subcategory.objects.get_queryset(),
         'query': query,
         'request_text': request_text,
     }

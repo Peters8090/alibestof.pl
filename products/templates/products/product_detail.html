@@ -31,6 +31,8 @@
             </div>
             <div class="col-md-8">
                 <div class="card card-body justify-content-center product-info-card-body">
+                    <a href="{% url 'products:products_list' product.user.username product.category.pk %}" class="mb-3">{{ product.user.username }}'s
+                        profile / {{ product.category.parent_category.name }} / {{ product.category.name }}</a>
                     <h5 class="card-title">{{ product.name }}</h5>
                     <p class="card-text">{{ product.description|linebreaks }}</p>
                     {% if product.user.is_superuser %}
