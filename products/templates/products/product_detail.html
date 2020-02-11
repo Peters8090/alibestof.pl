@@ -6,11 +6,11 @@
 {% endblock %}
 
 {% block title %}
-    Product ID {{ product.id }}
+    {{ product.name }}
 {% endblock %}
 
 {% load products_tags %}
-{% block add_href_text %}{% show_profile_info product.user.username %}{% endblock %}
+{% block add_href_text %}{% show_profile_info username=product.user.username is_homepage=is_homepage %}{% endblock %}
 {% block add_href %}
     {% url 'products:products_list' product.user.username %}
 {% endblock %}

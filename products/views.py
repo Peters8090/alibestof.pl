@@ -57,6 +57,7 @@ def products_list(request, username, page=1, category=0):
     product_search_form = ProductSearchForm(request.GET or None)
 
     context = {
+        'is_homepage': username == Configuration.get_configuration().home_page_user.username,
         'username': username,
         'products': products,
         'products_paginator': products_paginator,
@@ -90,4 +91,5 @@ class ProductDetailView(generic.DetailView):
         if context['product'].published is False:
             raise Http404('No product found matching the query')
         context['request'] = self.request
+        context['is_homepage'] = context['product'].user.username == Configuration.get_configuration().home_page_user.username
         return context

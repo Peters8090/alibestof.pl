@@ -35,7 +35,7 @@ class Product(models.Model):
     published = models.BooleanField(default=True)
 
     class Meta:
-        ordering = ['-date_modified']
+        ordering = ['-date_modified', '-pk']
         permissions = [('can_interact_with_all_products', 'Can interact with all products'),
                        ('can_interact_with_his_own_products', 'Can interact with his own products')]
 
@@ -43,7 +43,6 @@ class Product(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-
         # On create
         if not self.pk:
             # If there is no author, assign one

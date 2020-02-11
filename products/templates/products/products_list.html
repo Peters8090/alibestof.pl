@@ -6,10 +6,14 @@
 {% endblock %}
 
 {% block title %}
-    {{ username }}
+    {% if is_homepage %}
+        home
+    {% else %}
+        {{ username }}
+    {% endif %}
 {% endblock %}
 {% load products_tags %}
-{% block add_href_text %}{% show_profile_info username %}{% endblock %}
+{% block add_href_text %}{% show_profile_info is_homepage=is_homepage username=username %}{% endblock %}
 {% block add_href %}
     {% url 'products:products_list' username=username %}
 {% endblock %}
