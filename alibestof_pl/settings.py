@@ -27,7 +27,7 @@ SECRET_KEY = IMPORTANT_DATA[0]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'peters8090.usermd.net']
+ALLOWED_HOSTS = ['alibestof.pl']
 
 # Application definition
 
