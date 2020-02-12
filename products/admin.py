@@ -8,7 +8,7 @@ from .models import Product
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = (
-        'name', 'id', 'user', 'author', 'description', 'product_link', 'photos_link', 'date_modified',
+        'name', 'id', 'user', 'author', 'category', 'description', 'product_link', 'photos_link', 'date_modified',
         'date_created', 'published')
     list_filter = ['user', 'author', 'category', 'date_modified', 'date_created', 'published']
     list_editable = ['description', 'product_link', 'photos_link', ]
