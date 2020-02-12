@@ -25,9 +25,9 @@ IMPORTANT_DATA = open(os.path.join(BASE_DIR, 'alibestof_pl/important_data.txt'))
 SECRET_KEY = IMPORTANT_DATA[0]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['alibestof.pl']
+ALLOWED_HOSTS = ['alibestof.pl', 'www.alibestof.pl',]
 
 # Application definition
 
