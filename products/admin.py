@@ -15,11 +15,13 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ['name', 'description']
     actions = ['publish_products', 'unpublish_products']
 
-    def changelist_view(self, request, extra_context=None):
+    def get_list_filter(self, request):
+        list_filter = self.list_filter.copy()
+
         if request.user.has_perm('products.can_interact_with_all_products'):
-            self.list_filter.insert(0, 'user')
-            self.list_filter.insert(1, 'author')
-        return super(ProductAdmin, self).changelist_view(request, extra_context=extra_context)
+            list_filter.insert(0, 'user')
+            list_filter.insert(1, 'author')
+        return list_filter
 
     def get_changelist_form(self, request, **kwargs):
         kwargs.setdefault('form', ProductAdminListEditForm)
