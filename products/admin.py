@@ -10,10 +10,16 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = (
         'name', 'id', 'user', 'author', 'category', 'description', 'product_link', 'photos_link', 'date_modified',
         'date_created', 'published')
-    list_filter = ['user', 'author', 'category', 'date_modified', 'date_created', 'published']
+    list_filter = ['category', 'date_modified', 'date_created', 'published']
     list_editable = ['description', 'product_link', 'photos_link', ]
     search_fields = ['name', 'description']
     actions = ['publish_products', 'unpublish_products']
+
+    def changelist_view(self, request, extra_context=None):
+        if request.user.has_perm('products.can_interact_with_all_products'):
+            self.list_filter.insert(0, 'user')
+            self.list_filter.insert(1, 'author')
+        return super(ProductAdmin, self).changelist_view(request, extra_context=extra_context)
 
     def get_changelist_form(self, request, **kwargs):
         kwargs.setdefault('form', ProductAdminListEditForm)
