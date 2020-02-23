@@ -16,6 +16,7 @@ a {
 .brand {
     font-family: 'AvenirLTS', serif;
     color: #F62F05;
+    white-space: nowrap !important;
 }
 
 .brand:hover {

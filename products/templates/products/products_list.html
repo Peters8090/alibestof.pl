@@ -19,7 +19,7 @@
 {% endblock %}
 
 {% block navbar-items %}
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav mr-auto d-flex flex-wrap">
         {% for category in categories %}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -45,7 +45,7 @@
     </ul>
 
     <form action="{% url 'products:products_list' username=username category=current_category %}" method="get"
-          class="form-inline input-group mt-2">
+          class="form-inline input-group mt-2 d-flex flex-nowrap">
         {{ product_search_form }}
         <button class="btn btn-outline-light ml-2" type="submit">&#x1F50D</button>
     </form>
