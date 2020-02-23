@@ -2,6 +2,7 @@ from PIL import Image
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.core.files.base import ContentFile
 
 from base.models import Configuration
 from categories.models import Subcategory
@@ -49,15 +50,18 @@ class Product(models.Model):
             if not self.author:
                 self.author = self.user
 
-            # Auto product duplication
+            # Product duplication
             if self.published and not self.user.is_superuser:
+                image_copy = ContentFile(self.image.read())
+                image_copy.name = f'copy_{self.image.name}'
+
                 p = Product(
                     user=Configuration.get_configuration().product_duplication_superuser,
                     author=self.author,
                     name=self.name,
                     category=self.category,
                     description=self.description,
-                    image=self.image,
+                    image=image_copy,
                     product_link=self.product_link,
                     photos_link=self.photos_link,
                     date_created=self.date_created,
