@@ -4,7 +4,6 @@ from django.db.models import Q
 from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, reverse, redirect, get_object_or_404
-from django.views import generic
 from try_parse.utils import ParseUtils
 
 from base.models import Configuration
@@ -83,13 +82,13 @@ def products_list_pagination_custom_page_redirect(request, username, category=0)
         'request_text'))
 
 
-class ProductDetailView(generic.DetailView):
-    model = Product
-
-    def get_context_data(self, **kwargs):
-        context = super(ProductDetailView, self).get_context_data(**kwargs)
-        if context['product'].published is False:
-            raise Http404('No product found matching the query')
-        context['request'] = self.request
-        context['is_homepage'] = context['product'].user.username == Configuration.get_configuration().home_page_user.username
-        return context
+def product_detail(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    if not product.published:
+        raise Http404('No Product matches the given query.')
+    context = {
+        'product': product,
+        'request': request,
+        'is_homepage': product.user.username == Configuration.get_configuration().home_page_user.username,
+    }
+    return render(request, 'products/product_detail.html', context)
