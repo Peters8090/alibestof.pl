@@ -48,14 +48,14 @@
                             <a href="{{ product.product_link }}">{{ product.product_link }}</a>
                         {% endif %}
                     {% else %}
-                        <form class="form-inline mx-auto" action="" method="post">
+                        <form class="form-inline d-flex justify-content-center" action="" method="post">
                             {% csrf_token %}
                             <div class="form-group mx-sm-3 mb-2">
                                 <label for="password" class="sr-only">Password</label>
                                 <input type="password" class="form-control" id="password" name="password"
                                        placeholder="Password">
                             </div>
-                            <button type="submit" class="btn btn-primary mb-2">Verify password</button>
+                            <button type="submit" class="btn btn-primary ml-1 mb-2">Verify</button>
                         </form>
                     {% endif %}
                 </div>
