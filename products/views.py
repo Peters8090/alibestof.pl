@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import Http404
@@ -6,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, reverse, redirect, get_object_or_404
 from try_parse.utils import ParseUtils
 
-from base.models import Configuration
+from base.models import Configuration, UserProfileConfiguration
 from categories.models import Category, Subcategory
 from .forms import ProductSearchForm
 from .models import Product
@@ -86,9 +87,31 @@ def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
     if not product.published:
         raise Http404('No Product matches the given query.')
+
+    auth = False
+    user_profile_password = None
+
+    try:
+        user_profile_password = UserProfileConfiguration.get_user_profile_configuration(product.user.username).password
+    except ObjectDoesNotExist:
+        auth = True
+
+    if user_profile_password:
+        session_cookie_name = 'password_user_{product_user_id}'.format(product_user_id={product.user.id})
+
+        if request.session.get(session_cookie_name) == user_profile_password:
+            auth = True
+        elif request.POST.get('password'):
+            request.session[session_cookie_name] = request.POST.get('password')
+            return HttpResponseRedirect(reverse('products:product_detail', kwargs={'pk': pk}))
+
+    if product.user == request.user or request.user.is_superuser:
+        auth = True
+
     context = {
         'product': product,
         'request': request,
+        'auth': auth,
         'is_homepage': product.user.username == Configuration.get_configuration().home_page_user.username,
     }
     return render(request, 'products/product_detail.html', context)

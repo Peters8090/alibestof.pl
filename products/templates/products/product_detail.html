@@ -38,13 +38,25 @@
                     {% endif %}
                     <h5 class="card-title">{{ product.name }}</h5>
                     <p class="card-text">{{ product.description|linebreaks }}</p>
-                    {% if product.user.is_superuser %}
-                        <div>
-                            <a class="btn btn-outline-info" href="{{ product.product_link }}"
-                               role="button">Link</a>
-                        </div>
+                    {% if auth %}
+                        {% if product.user.is_superuser %}
+                            <div>
+                                <a class="btn btn-outline-info" href="{{ product.product_link }}"
+                                   role="button">Link</a>
+                            </div>
+                        {% else %}
+                            <a href="{{ product.product_link }}">{{ product.product_link }}</a>
+                        {% endif %}
                     {% else %}
-                        <a href="{{ product.product_link }}">{{ product.product_link }}</a>
+                        <form class="form-inline mx-auto" action="" method="post">
+                            {% csrf_token %}
+                            <div class="form-group mx-sm-3 mb-2">
+                                <label for="password" class="sr-only">Password</label>
+                                <input type="password" class="form-control" id="password" name="password"
+                                       placeholder="Password">
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2">Verify password</button>
+                        </form>
                     {% endif %}
                 </div>
             </div>

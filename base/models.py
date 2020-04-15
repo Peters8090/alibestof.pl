@@ -1,6 +1,6 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.shortcuts import get_object_or_404
-from django.contrib.auth.models import User
 
 
 class Configuration(models.Model):
@@ -26,3 +26,22 @@ class SocialLink(models.Model):
     name = models.CharField(max_length=100)
     image = models.ImageField(upload_to='base/social-links/')
     link = models.URLField()
+
+
+class UserProfileConfiguration(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False)
+    password = models.CharField(max_length=50,
+                                help_text="""Leave it blank, if you don't want to use a password protection for your products""",
+                                blank=True, null=True)
+
+    class Meta:
+        permissions = [
+            ('can_interact_with_all_user_profile_configurations', 'Can interact with all user profile configurations'),
+            ('can_interact_with_his_own_user_profile_configuration', 'Can interact with his own user profile configuration')]
+
+    def __str__(self):
+        return f'Profile Configuration [{self.user.username}]'
+
+    @staticmethod
+    def get_user_profile_configuration(username):
+        return UserProfileConfiguration.objects.get(user__username__exact=username)
