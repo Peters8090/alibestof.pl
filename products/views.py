@@ -56,8 +56,6 @@ def products_list(request, username, page=1, category=0):
 
     product_search_form = ProductSearchForm(request.GET or None)
 
-    request.session.set_test_cookie()
-
     context = {
         'is_homepage': username == Configuration.get_configuration().home_page_user.username,
         'username': username,
@@ -98,7 +96,7 @@ def product_detail(request, pk):
     except ObjectDoesNotExist:
         auth = True
 
-    if user_profile_password and request.session.test_cookie_worked():
+    if user_profile_password:
         session_cookie_name = 'password_user_{product_user_id}'.format(product_user_id={product.user.id})
 
         if request.session.get(session_cookie_name) == user_profile_password:
