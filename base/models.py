@@ -30,9 +30,7 @@ class SocialLink(models.Model):
 
 class UserProfileConfiguration(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False)
-    password = models.CharField(max_length=50,
-                                help_text="""Leave it blank, if you don't want to use a password protection for your products""",
-                                blank=True, null=True)
+    password = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
         permissions = [

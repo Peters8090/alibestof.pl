@@ -93,6 +93,8 @@ def product_detail(request, pk):
 
     try:
         user_profile_password = UserProfileConfiguration.get_user_profile_configuration(product.user.username).password
+        if user_profile_password == '':
+            raise ObjectDoesNotExist
     except ObjectDoesNotExist:
         auth = True
 
