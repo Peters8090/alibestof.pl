@@ -27,7 +27,7 @@ SECRET_KEY = IMPORTANT_DATA[0]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['alibestof.pl', 'www.alibestof.pl', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['alibestof.pl', 'www.alibestof.pl', 'localhost', '127.0.0.1', 'kemotto.usermd.net', 'www.kemotto.usermd.net']
 
 # Application definition
 

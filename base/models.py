@@ -30,12 +30,14 @@ class SocialLink(models.Model):
 
 class UserProfileConfiguration(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False)
-    password = models.CharField(max_length=50, blank=True, null=True)
+    password = models.CharField(max_length=50, blank=True, null=True,
+                                help_text='Leave it blank if you don\'t want to use the password protection for your products')
 
     class Meta:
         permissions = [
             ('can_interact_with_all_user_profile_configurations', 'Can interact with all user profile configurations'),
-            ('can_interact_with_his_own_user_profile_configuration', 'Can interact with his own user profile configuration')]
+            ('can_interact_with_his_own_user_profile_configuration',
+             'Can interact with his own user profile configuration')]
 
     def __str__(self):
         return f'Profile Configuration [{self.user.username}]'

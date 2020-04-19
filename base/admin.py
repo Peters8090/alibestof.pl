@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.core.exceptions import ObjectDoesNotExist
 
-from .forms import UserProfileConfigurationForm
 from .models import Configuration, SocialLink, UserProfileConfiguration
 
 admin.site.site_header = "AliBestOf"
@@ -39,8 +38,6 @@ class ConfigurationAdmin(admin.ModelAdmin):
 
 @admin.register(UserProfileConfiguration)
 class UserProfileConfigurationAdmin(admin.ModelAdmin):
-    form = UserProfileConfigurationForm
-
     def get_queryset(self, request):
         super().get_queryset(request)
         if request.user.has_perm('base.can_interact_with_all_user_profile_configurations'):
