@@ -89,23 +89,39 @@ def product_detail(request, pk):
         raise Http404('No Product matches the given query.')
 
     auth = False
+    auth_error = ''
     user_profile_password = None
 
     try:
         user_profile_password = UserProfileConfiguration.get_user_profile_configuration(product.user.username).password
-        if user_profile_password == '':
+
+        print(user_profile_password)
+
+        if user_profile_password == '' or not user_profile_password:
             raise ObjectDoesNotExist
+
     except ObjectDoesNotExist:
         auth = True
 
-    if user_profile_password:
-        session_cookie_name = 'password_user_{product_user_id}'.format(product_user_id={product.user.id})
+    try:
+        if user_profile_password:
+            password_cookie_name = 'password_user_{product_user_id}'.format(product_user_id={product.user.id})
+            auth_error_cookie_name = 'auth_error'
 
-        if request.session.get(session_cookie_name) == user_profile_password:
-            auth = True
-        elif request.POST.get('password'):
-            request.session[session_cookie_name] = request.POST.get('password')
-            return HttpResponseRedirect(reverse('products:product_detail', kwargs={'pk': pk}))
+            if request.POST.get('password'):
+                request.session[password_cookie_name] = request.POST.get('password')
+
+                if request.POST.get('password') != user_profile_password:
+                    request.session[auth_error_cookie_name] = 'Authorization failed. Please try again later.'
+
+                return HttpResponseRedirect(reverse('products:product_detail', kwargs={'pk': pk}))
+            elif request.session[password_cookie_name] == user_profile_password:
+                auth = True
+            elif request.session[auth_error_cookie_name]:
+                auth_error = request.session[auth_error_cookie_name]
+                del request.session[auth_error_cookie_name]
+    except KeyError:
+        pass
 
     if product.user == request.user or request.user.is_superuser:
         auth = True
@@ -114,6 +130,7 @@ def product_detail(request, pk):
         'product': product,
         'request': request,
         'auth': auth,
+        'auth_error': auth_error,
         'is_homepage': product.user.username == Configuration.get_configuration().home_page_user.username,
     }
     return render(request, 'products/product_detail.html', context)
