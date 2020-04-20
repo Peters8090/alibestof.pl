@@ -23,7 +23,7 @@ def products_list(request, username, page=1, category=0):
     # 404 if user doesn't exist
     get_object_or_404(User, username=username)
 
-    request_text = request.build_absolute_uri().split('/')[-1].translate(str.maketrans('', '', '0123456789'))
+    request_text = '?' + request.GET.urlencode()
 
     # Find published products of a user
     products = Product.objects.filter(user__username__exact=username,
