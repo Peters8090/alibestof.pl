@@ -112,7 +112,7 @@ def product_detail(request, pk):
                 request.session[password_cookie_name] = request.POST.get('password')
 
                 if request.POST.get('password') != user_profile_password:
-                    request.session[auth_error_cookie_name] = 'Wrong password'
+                    request.session[auth_error_cookie_name] = 'Wrong password. Get a new one.'
 
                 return HttpResponseRedirect(reverse('products:product_detail', kwargs={'pk': pk}))
             elif request.session[password_cookie_name] == user_profile_password:
