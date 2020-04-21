@@ -2,7 +2,6 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, reverse, redirect, get_object_or_404
 from try_parse.utils import ParseUtils
@@ -84,9 +83,13 @@ def products_list_pagination_custom_page_redirect(request, username, category=0)
 
 
 def product_detail(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    if not product.published:
-        raise Http404('No Product matches the given query.')
+    product = None
+    try:
+        product = Product.objects.get(pk=pk)
+        if not product.published:
+            raise ObjectDoesNotExist
+    except ObjectDoesNotExist:
+        return HttpResponseRedirect(reverse('homepage'))
 
     auth = False
     auth_error = ''
@@ -94,9 +97,6 @@ def product_detail(request, pk):
 
     try:
         user_profile_password = UserProfileConfiguration.get_user_profile_configuration(product.user.username).password
-
-        print(user_profile_password)
-
         if user_profile_password == '' or not user_profile_password:
             raise ObjectDoesNotExist
 
