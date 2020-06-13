@@ -48,6 +48,11 @@
                                     <a class="btn btn-outline-info btn-block" href="{{ product.product_link }}"
                                        role="button">Link</a>
                                 {% endif %}
+                                {% if how_to_buy != '' %}
+                                    <a class="btn btn-outline-dark mt-3 btn-block" href="{{ how_to_buy }}"
+                                       target="_blank"
+                                       role="button">How to buy</a>
+                                {% endif %}
                                 <a class="btn btn-outline-info mt-3 btn-block" href="{{ product.photos_link }}"
                                    role="button">Photos Link <br> (Preview Below)</a>
                             </div>

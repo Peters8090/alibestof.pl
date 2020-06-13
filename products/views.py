@@ -137,5 +137,6 @@ def product_detail(request, pk):
         'auth': auth,
         'auth_error': auth_error,
         'is_homepage': home_page_user.username == product.user.username if home_page_user else False,
+        'how_to_buy': get_object_or_404(Configuration).how_to_buy,
     }
     return render(request, 'products/product_detail.html', context)

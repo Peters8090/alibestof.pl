@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.shortcuts import get_object_or_404
 
 
 class Configuration(models.Model):
@@ -12,6 +11,8 @@ class Configuration(models.Model):
     product_duplication_superuser = models.ForeignKey(User, on_delete=models.SET_NULL,
                                                       related_name='product_duplication_superuser', blank=False,
                                                       null=True)
+    how_to_buy = models.URLField(blank=True,
+                                 help_text="Link to the instructions, it is only visible on the homepage user's page.")
     products_per_page = models.IntegerField(default=20)
     product_link_validator = models.TextField(max_length=1000, blank=True)
     photos_link_validator = models.TextField(max_length=1000, blank=True)

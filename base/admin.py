@@ -22,6 +22,7 @@ class ConfigurationAdmin(admin.ModelAdmin):
         }),
         ('Displaying products', {
             'fields': (
+                'how_to_buy',
                 'products_per_page',
                 'product_link_validator',
                 'photos_link_validator',)
