@@ -1,6 +1,6 @@
-Django
-django-cleanup
-mysqlclient
-Pillow
-django-ordered-model
-try-parse
+Django==3.0.7
+django-cleanup==4.0.0
+mysqlclient==1.4.6
+Pillow==7.0.0
+django-ordered-model==3.3.0
+try-parse==0.0.8
