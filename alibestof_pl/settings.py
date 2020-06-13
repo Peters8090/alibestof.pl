@@ -12,17 +12,16 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+from . import important_data
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# Own
-IMPORTANT_DATA = open(os.path.join(BASE_DIR, 'alibestof_pl/important_data.txt')).read().split('\n')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = IMPORTANT_DATA[0]
+SECRET_KEY = important_data.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -84,16 +83,13 @@ WSGI_APPLICATION = 'alibestof_pl.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': IMPORTANT_DATA[1],
-        'USER': IMPORTANT_DATA[2],
-        'PASSWORD': IMPORTANT_DATA[3],
-        'HOST': IMPORTANT_DATA[4],
-        'PORT': IMPORTANT_DATA[5],
-
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
+        'ENGINE': important_data.DATABASE_ENGINE,
+        'NAME': important_data.DATABASE_NAME,
+        'USER': important_data.DATABASE_USER,
+        'PASSWORD': important_data.DATABASE_PASSWORD,
+        'HOST': important_data.DATABASE_HOST,
+        'PORT': important_data.DATABASE_PORT,
+        'OPTIONS': important_data.DATABASE_OPTIONS,
     }
 }
 
