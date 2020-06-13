@@ -1,5 +1,8 @@
 from django.contrib.auth.models import User
+from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.shortcuts import get_object_or_404
 
 
@@ -28,20 +31,27 @@ class SocialLink(models.Model):
     link = models.URLField()
 
 
-class UserProfileConfiguration(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False)
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, editable=False)
     password = models.CharField(max_length=50, blank=True, null=True,
                                 help_text='Leave it blank if you don\'t want to use the password protection for your products.')
 
     class Meta:
         permissions = [
-            ('can_interact_with_all_user_profile_configurations', 'Can interact with all user profile configurations'),
-            ('can_interact_with_his_own_user_profile_configuration',
-             'Can interact with his own user profile configuration')]
+            ('can_interact_with_all_profiles', 'Can interact with all profiles'),
+            ('can_interact_with_his_own_profile',
+             'Can interact with his own profile')]
 
     def __str__(self):
-        return f'Profile Configuration [{self.user.username}]'
+        return f'Profile [{self.user.username}]'
 
-    @staticmethod
-    def get_user_profile_configuration(username):
-        return UserProfileConfiguration.objects.get(user__username__exact=username)
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()

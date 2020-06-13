@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, reverse, redirect, get_object_or_404
 from try_parse.utils import ParseUtils
 
-from base.models import Configuration, UserProfileConfiguration
+from base.models import Configuration, Profile
 from categories.models import Category, Subcategory
 from .forms import ProductSearchForm
 from .models import Product
@@ -96,7 +96,7 @@ def product_detail(request, pk):
     user_profile_password = None
 
     try:
-        user_profile_password = UserProfileConfiguration.get_user_profile_configuration(product.user.username).password
+        user_profile_password = get_object_or_404(Profile, user__username__exact=product.user.username).password
         if user_profile_password == '' or not user_profile_password:
             raise ObjectDoesNotExist
 

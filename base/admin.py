@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.core.exceptions import ObjectDoesNotExist
 
-from .models import Configuration, SocialLink, UserProfileConfiguration
+from .models import Configuration, SocialLink, Profile
 
 admin.site.site_header = "AliBestOf"
 admin.site.index_title = "Administration"
@@ -36,16 +36,16 @@ class ConfigurationAdmin(admin.ModelAdmin):
             return True
 
 
-@admin.register(UserProfileConfiguration)
+@admin.register(Profile)
 class UserProfileConfigurationAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         super().get_queryset(request)
-        if request.user.has_perm('base.can_interact_with_all_user_profile_configurations'):
-            return UserProfileConfiguration.objects
-        elif request.user.has_perm('base.can_interact_with_his_own_user_profile_configuration'):
-            return UserProfileConfiguration.objects.filter(user_id=request.user.id)
+        if request.user.has_perm('base.can_interact_with_all_profiles'):
+            return Profile.objects
+        elif request.user.has_perm('base.can_interact_with_his_own_profile'):
+            return Profile.objects.filter(user_id=request.user.id)
         else:
-            return UserProfileConfiguration.objects.none()
+            return Profile.objects.none()
 
     def save_model(self, request, obj, form, change):
         try:
@@ -55,7 +55,7 @@ class UserProfileConfigurationAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
     def has_add_permission(self, request):
-        if UserProfileConfiguration.objects.filter(user__username__exact=request.user.username).count() > 0:
+        if Profile.objects.filter(user__username__exact=request.user.username).count() > 0:
             return False
         else:
             return True
