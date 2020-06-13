@@ -25,7 +25,7 @@
 {% block content %}
     <main class="card text-center m-2">
         <div class="row no-gutters">
-            <div class="col-md-4">
+            <div class="col-md-4 d-flex justify-content-center align-items-center p-2">
                 <img src="{{ product.image.url }}" class="card-img w-50 img-thumbnail product-info-img"
                      alt="{{ product.name }}">
             </div>
@@ -54,6 +54,7 @@
                                        role="button">How to buy</a>
                                 {% endif %}
                                 <a class="btn btn-outline-info mt-3 btn-block" href="{{ product.photos_link }}"
+                                   target="_blank"
                                    role="button">Photos Link <br> (Preview Below)</a>
                             </div>
                         </div>
