@@ -10,6 +10,11 @@
     height: 60vh;
 }
 
+.homepage-links-wrapper {
+    width: 150px;
+    text-align: center;
+}
+
 .product-info-img {
     max-width: 15rem !important;
 }
