@@ -16,12 +16,14 @@ class Configuration(models.Model):
     product_link_validator = models.TextField(max_length=1000, blank=True)
     photos_link_validator = models.TextField(max_length=1000, blank=True)
 
-    def __str__(self):
-        return 'Site configuration'
+    def save(self, *args, **kwargs):
+        if not self.pk and len(Profile.objects.all()) > 0:
+            return
+        else:
+            super().save(*args, **kwargs)
 
-    @staticmethod
-    def get_configuration():
-        return get_object_or_404(Configuration)
+    def __str__(self):
+        return 'Configuration'
 
 
 class SocialLink(models.Model):

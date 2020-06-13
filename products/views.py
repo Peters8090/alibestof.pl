@@ -15,7 +15,8 @@ from .models import Product
 def home_page(request):
     return HttpResponseRedirect(
         reverse('products:products_list',
-                kwargs={'username': Configuration.get_configuration().home_page_user.username}))
+                kwargs={'username': get_object_or_404(Configuration).home_page_user.username if get_object_or_404(
+                    Configuration).home_page_user else None}))
 
 
 def products_list(request, username, page=1, category=0):
@@ -48,15 +49,17 @@ def products_list(request, username, page=1, category=0):
         # Some category has been selected
         products = products.filter(category_id__exact=ParseUtils.try_parse_int(category)[1])
 
-    products_paginator = Paginator(products, Configuration.get_configuration().products_per_page)
+    products_paginator = Paginator(products, get_object_or_404(Configuration).products_per_page)
     products_paginator_current_page = Paginator(products,
-                                                Configuration.get_configuration().products_per_page).get_page(page)
+                                                get_object_or_404(Configuration).products_per_page).get_page(page)
     products = products_paginator.get_page(page).object_list
 
     product_search_form = ProductSearchForm(request.GET or None)
 
+    home_page_user = get_object_or_404(Configuration).home_page_user
+
     context = {
-        'is_homepage': username == Configuration.get_configuration().home_page_user.username,
+        'is_homepage': home_page_user.username == username if home_page_user else False,
         'username': username,
         'products': products,
         'products_paginator': products_paginator,
@@ -126,11 +129,13 @@ def product_detail(request, pk):
     if product.user == request.user or request.user.is_superuser:
         auth = True
 
+    home_page_user = get_object_or_404(Configuration).home_page_user
+
     context = {
         'product': product,
         'request': request,
         'auth': auth,
         'auth_error': auth_error,
-        'is_homepage': product.user.username == Configuration.get_configuration().home_page_user.username,
+        'is_homepage': home_page_user.username == product.user.username if home_page_user else False,
     }
     return render(request, 'products/product_detail.html', context)

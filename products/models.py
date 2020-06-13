@@ -3,22 +3,23 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.core.files.base import ContentFile
+from django.shortcuts import get_object_or_404
 
 from base.models import Configuration
 from categories.models import Subcategory
 
 
 def product_link_validator(value):
-    if not any(ext in value for ext in Configuration.get_configuration().product_link_validator.split('\r\n')):
+    if not any(ext in value for ext in get_object_or_404(Configuration).product_link_validator.split('\r\n')):
         raise ValidationError(
-            'You must include ' + Configuration.get_configuration().product_link_validator.replace('\r\n',
+            'You must include ' + get_object_or_404(Configuration).product_link_validator.replace('\r\n',
                                                                                                    ' or ') + ' in your product link')
 
 
 def photos_link_validator(value):
-    if not any(ext in value for ext in Configuration.get_configuration().photos_link_validator.split('\r\n')):
+    if not any(ext in value for ext in get_object_or_404(Configuration).photos_link_validator.split('\r\n')):
         raise ValidationError(
-            'You must include ' + Configuration.get_configuration().photos_link_validator.replace('\r\n',
+            'You must include ' + get_object_or_404(Configuration).photos_link_validator.replace('\r\n',
                                                                                                   ' or ') + ' in your photos link')
 
 
@@ -56,7 +57,7 @@ class Product(models.Model):
                 image_copy.name = f'copy_{self.image.name}'
 
                 p = Product(
-                    user=Configuration.get_configuration().product_duplication_superuser,
+                    user=get_object_or_404(Configuration).product_duplication_superuser,
                     author=self.author,
                     name=self.name,
                     category=self.category,
