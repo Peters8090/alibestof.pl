@@ -16,7 +16,7 @@ class Configuration(models.Model):
     photos_link_validator = models.TextField(max_length=1000, blank=True)
 
     def save(self, *args, **kwargs):
-        if not self.pk and len(Profile.objects.all()) > 0:
+        if not self.pk and len(Configuration.objects.all()) > 0:
             return
         else:
             super().save(*args, **kwargs)
