@@ -22,7 +22,6 @@ class ConfigurationAdmin(admin.ModelAdmin):
         }),
         ('Displaying products', {
             'fields': (
-                'how_to_buy',
                 'products_per_page',
                 'product_link_validator',
                 'photos_link_validator',)
@@ -38,7 +37,15 @@ class ConfigurationAdmin(admin.ModelAdmin):
 
 
 @admin.register(Profile)
-class UserProfileConfigurationAdmin(admin.ModelAdmin):
+class ProfileAdmin(admin.ModelAdmin):
+    exclude = []
+
+    def get_exclude(self, request, obj=None):
+        if request.user.is_superuser:
+            return super().get_exclude(request, obj)
+        else:
+            return ['how_to_buy']
+
     def get_queryset(self, request):
         super().get_queryset(request)
         if request.user.has_perm('base.can_interact_with_all_profiles'):

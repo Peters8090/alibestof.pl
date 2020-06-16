@@ -86,7 +86,6 @@ def products_list_pagination_custom_page_redirect(request, username, category=0)
 
 
 def product_detail(request, pk):
-    product = None
     try:
         product = Product.objects.get(pk=pk)
         if not product.published:
@@ -130,13 +129,14 @@ def product_detail(request, pk):
         auth = True
 
     home_page_user = get_object_or_404(Configuration).home_page_user
+    is_home_page = home_page_user.username == product.user.username if home_page_user else False
 
     context = {
         'product': product,
         'request': request,
         'auth': auth,
         'auth_error': auth_error,
-        'is_homepage': home_page_user.username == product.user.username if home_page_user else False,
-        'how_to_buy': get_object_or_404(Configuration).how_to_buy,
+        'is_homepage': is_home_page,
+        'how_to_buy': get_object_or_404(Profile, user=product.author).how_to_buy if is_home_page else None,
     }
     return render(request, 'products/product_detail.html', context)
