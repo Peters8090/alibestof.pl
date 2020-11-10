@@ -11,7 +11,7 @@
 
 {% block additional_head %}
     {% if not is_homepage %}
-        {{ configuration.additional_head_code_on_details_page_for_sellers_excluding_home_page_user|safe }}
+        {{ configuration.add_head_code_det_excl_hpu|safe }}
     {% endif %}
 {% endblock %}
 

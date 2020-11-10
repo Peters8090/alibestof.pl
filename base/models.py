@@ -13,8 +13,9 @@ class Configuration(models.Model):
     products_per_page = models.IntegerField(default=20)
     product_link_validator = models.TextField(max_length=1000, blank=True)
     photos_link_validator = models.TextField(max_length=1000, blank=True)
-    additional_head_code_on_details_page_for_sellers_excluding_home_page_user = models.TextField(max_length=10000,
-                                                                                                 blank=True)
+    add_head_code_det_excl_hpu = models.TextField(max_length=10000,
+                                                  verbose_name="Additional head code on details page for sellers excluding home page user",
+                                                  blank=True)
 
     def save(self, *args, **kwargs):
         if not self.pk and len(Configuration.objects.all()) > 0:
