@@ -49,14 +49,16 @@ def products_list(request, username, page=1, category=0):
         # Some category has been selected
         products = products.filter(category_id__exact=ParseUtils.try_parse_int(category)[1])
 
-    products_paginator = Paginator(products, get_object_or_404(Configuration).products_per_page)
+    configuration = get_object_or_404(Configuration)
+
+    products_paginator = Paginator(products, configuration.products_per_page)
     products_paginator_current_page = Paginator(products,
-                                                get_object_or_404(Configuration).products_per_page).get_page(page)
+                                                configuration.products_per_page).get_page(page)
     products = products_paginator.get_page(page).object_list
 
     product_search_form = ProductSearchForm(request.GET or None)
 
-    home_page_user = get_object_or_404(Configuration).home_page_user
+    home_page_user = configuration.home_page_user
 
     context = {
         'is_homepage': home_page_user.username == username if home_page_user else False,
@@ -128,7 +130,8 @@ def product_detail(request, pk):
     if product.user == request.user or request.user.is_superuser:
         auth = True
 
-    home_page_user = get_object_or_404(Configuration).home_page_user
+    configuration = get_object_or_404(Configuration)
+    home_page_user = configuration.home_page_user
     is_home_page = home_page_user.username == product.user.username if home_page_user else False
 
     context = {
@@ -138,5 +141,6 @@ def product_detail(request, pk):
         'auth_error': auth_error,
         'is_homepage': is_home_page,
         'how_to_buy': get_object_or_404(Profile, user=product.author).how_to_buy if is_home_page else None,
+        'configuration': configuration,
     }
     return render(request, 'products/product_detail.html', context)

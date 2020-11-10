@@ -24,7 +24,9 @@ class ConfigurationAdmin(admin.ModelAdmin):
             'fields': (
                 'products_per_page',
                 'product_link_validator',
-                'photos_link_validator',)
+                'photos_link_validator',
+                'additional_head_code_on_details_page_for_sellers_excluding_home_page_user'
+            )
         }),
     )
 

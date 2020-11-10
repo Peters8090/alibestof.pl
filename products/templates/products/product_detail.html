@@ -9,6 +9,12 @@
     {{ product.name }}
 {% endblock %}
 
+{% block additional_head %}
+    {% if not is_homepage %}
+        {{ configuration.additional_head_code_on_details_page_for_sellers_excluding_home_page_user|safe }}
+    {% endif %}
+{% endblock %}
+
 {% load products_tags %}
 {% block add_href_text %}{% show_profile_info username=product.user.username is_homepage=is_homepage %}{% endblock %}
 {% block add_href %}
